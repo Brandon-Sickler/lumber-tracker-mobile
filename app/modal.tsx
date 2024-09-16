@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
-import { useInventory } from './context';
+import { useInventory } from '../src/context/InventoryContext';
 
 export default function ModalScreen() {
   const { addItem } = useInventory();

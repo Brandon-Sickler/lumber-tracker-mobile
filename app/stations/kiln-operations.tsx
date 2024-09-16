@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
-import { Link } from 'expo-router';
-import { Href } from 'expo-router/src/link/href';
+import { Link, Href } from 'expo-router';
 
 export default function KilnOperationsScreen() {
   const [operationCompleted, setOperationCompleted] = useState(false);
@@ -14,12 +13,22 @@ export default function KilnOperationsScreen() {
   return (
     <View style={styles.container}>
       <Text>Kiln Operations Screen</Text>
-      <Button mode="contained" onPress={completeOperation} disabled={operationCompleted}>
+      <Button 
+        mode="contained" 
+        onPress={completeOperation} 
+        disabled={operationCompleted}
+        accessibilityLabel="Complete kiln operation"
+      >
         Complete Kiln Operation
       </Button>
       {operationCompleted && (
         <Link href={'/stations/kd-lumber' as Href<string>} asChild>
-          <Button mode="contained">Move to KD Lumber</Button>
+          <Button 
+            mode="contained"
+            accessibilityLabel="Move lumber to KD lumber"
+          >
+            Move to KD Lumber
+          </Button>
         </Link>
       )}
     </View>

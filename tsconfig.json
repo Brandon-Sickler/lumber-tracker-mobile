@@ -21,10 +21,10 @@
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["src/*", "app/*"],
       "@components/*": ["src/components/*"],
-      "@screens/*": ["src/screens/*"],
-      "@stations/*": ["src/stations/*"],
+      "@screens/*": ["src/screens/*", "app/(tabs)/*"],
+      "@stations/*": ["app/stations/*"],
       "@context/*": ["src/context/*"],
       "@utils/*": ["src/utils/*"],
       "@types/*": ["src/types/*"],
@@ -38,6 +38,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx"
   ]
 }

@@ -32,7 +32,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "entryPoint": "./src/navigation/AppNavigator.tsx"
+    }
   }
 }

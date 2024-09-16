@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
-import { Link } from 'expo-router';
-import { Href } from 'expo-router/src/link/href';
+import { Link, Href } from 'expo-router';
 
 export default function AirDryingScreen() {
   return (
     <View style={styles.container}>
       <Text>Air Drying Screen</Text>
       <Link href={'/stations/kiln-operations' as Href<string>} asChild>
-        <Button mode="contained">Move to Kiln Operations</Button>
+        <Button 
+          mode="contained"
+          accessibilityLabel="Move lumber to kiln operations"
+        >
+          Move to Kiln Operations
+        </Button>
       </Link>
     </View>
   );

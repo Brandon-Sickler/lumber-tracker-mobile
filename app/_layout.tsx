@@ -9,14 +9,12 @@ import { LumberProvider } from '@/context/LumberContext';
 import { LumberProcessProvider } from '@/context/LumberProcessContext';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
-    // Hide the splash screen once the layout is ready
     SplashScreen.hideAsync();
   }, []);
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
-import { Text, Card, Title, Paragraph, Button, useTheme } from 'react-native-paper';
-import { useInventory } from '@/context/InventoryContext'; // Updated
+import { Text, Card, Title, Paragraph, Button, useTheme, ActivityIndicator } from 'react-native-paper';
+import { useInventory } from '@/context/InventoryContext';
 import { useRouter } from 'expo-router';
 
 const stations = [
@@ -13,9 +13,26 @@ const stations = [
 ];
 
 export default function HomeScreen() {
-  const { inventory } = useInventory();
+  const { inventory, loadInventory } = useInventory();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const theme = useTheme();
+
+  useEffect(() => {
+    async function load() {
+      await loadInventory();
+      setLoading(false);
+    }
+    load();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.centered]}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -46,13 +63,11 @@ export default function HomeScreen() {
           <Button 
             key={index}
             mode="contained" 
-            style={[
-              styles.stationButton,
-              index > 2 ? styles.bottomRowButton : null
-            ]}
+            style={styles.stationButton}
             labelStyle={styles.buttonLabel}
             onPress={() => router.push(station.route as any)}
             buttonColor="rgba(255, 140, 0, 0.8)" // Neon orange with 80% opacity
+            accessibilityLabel={`Navigate to ${station.title}`}
           >
             {station.title}
           </Button>
@@ -63,7 +78,7 @@ export default function HomeScreen() {
 }
 
 const windowWidth = Dimensions.get('window').width;
-const buttonSize = (windowWidth - 64) / 3; // 64 = 16 * 4 (padding left, right, and spaces between buttons)
+const buttonWidth = windowWidth - 32; // Full width minus padding
 
 const styles = StyleSheet.create({
   container: {
@@ -82,27 +97,25 @@ const styles = StyleSheet.create({
     width: '48%',
   },
   stationsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
     marginTop: 16,
   },
   stationButton: {
-    width: buttonSize,
-    height: buttonSize,
+    width: buttonWidth,
+    height: 60, // Increased height
     marginBottom: 16,
     borderRadius: 16,
     justifyContent: 'center',
   },
-  bottomRowButton: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
   buttonLabel: {
-    fontSize: 14,
+    fontSize: 16, // Increased font size
     color: 'white',
     textAlign: 'center',
+    lineHeight: 20, // Adjusted line height
+  },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
-
 // Assuming styles is already defined in your original file
+

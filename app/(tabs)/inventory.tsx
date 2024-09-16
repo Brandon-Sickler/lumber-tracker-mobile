@@ -11,7 +11,7 @@ export default function InventoryScreen() {
     <List.Item
       title={item.type}
       description={`${item.amount} ${item.unit}`}
-      left={(props) => <List.Icon {...props} icon="wood" />}
+      left={(props) => <List.Icon {...props} icon="tree" />} 
       right={(props) => <Text {...props}>{item.type}</Text>}
     />
   );
