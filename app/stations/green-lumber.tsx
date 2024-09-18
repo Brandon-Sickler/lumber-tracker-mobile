@@ -13,7 +13,7 @@ type Package = {
   vendor: string;
   date: string;
   comments: string;
-  loadNumber: string; // Add this line
+  loadNumber: string;
 };
 
 type Load = {
@@ -58,7 +58,7 @@ export default function GreenLumberScreen() {
     vendor: '',
     date: '',
     comments: '',
-    loadNumber: '' 
+    loadNumber: ''
   });
   const [searchModalVisible, setSearchModalVisible] = useState(false);
   const [searchLoadNumber, setSearchLoadNumber] = useState('');
@@ -111,7 +111,7 @@ export default function GreenLumberScreen() {
           onPress: () => {
             setCurrentLoad({
               ...currentLoad,
-              packages: [...currentLoad.packages, currentPackage]
+              packages: [...currentLoad.packages, {...currentPackage, id: currentPackage.id}]
             });
             setCurrentPackage({
               id: '',
@@ -144,7 +144,11 @@ export default function GreenLumberScreen() {
           text: "Confirm", 
           onPress: () => {
             currentLoad.packages.forEach(pkg => {
-              addLumber({ ...pkg, status: 'green', loadNumber: currentLoad.loadNumber });
+              addLumber({
+                ...pkg,
+                status: 'green',
+                loadNumber: currentLoad.loadNumber
+              });
             });
             Alert.alert("Success", `Load ${currentLoad.loadNumber} has been added to inventory.`);
             hideModal();

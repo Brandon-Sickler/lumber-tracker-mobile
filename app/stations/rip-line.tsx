@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Card, Provider as PaperProvider, Portal, Modal, TextInput, Button } from 'react-native-paper';
-import { useLumber } from '@/context/LumberContext';
+import { useLumber, Lumber } from '@/context/LumberContext';
 import { commonStyles } from '../styles/commonStyles';
 
 interface Package {
@@ -14,17 +14,17 @@ interface Package {
 }
 
 export default function RipLineScreen() {
-  const { lumber } = useLumber();
-  const [infeedQueue, setInfeedQueue] = useState([]);
+  const { getInfeedQueue } = useLumber();
+  const [infeedQueue, setInfeedQueue] = useState<(Lumber | null)[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<Lumber | null>(null);
   const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
-    const queue = lumber.filter(item => item.status === 'infeed').slice(0, 4);
-    setInfeedQueue(queue as React.SetStateAction<never[]>);
-  }, [lumber]);
-  const showComments = (pkg: any) => {
+    setInfeedQueue(getInfeedQueue());
+  }, [getInfeedQueue]);
+
+  const showComments = (pkg: Lumber) => {
     setSelectedPackage(pkg);
     setModalVisible(true);
   };
@@ -36,12 +36,23 @@ export default function RipLineScreen() {
     setNewComment('');
   };
 
-  const renderPackageBox = (pkg, index) => (
-    <TouchableOpacity onPress={() => showComments(pkg)} style={styles.box}>
+  const renderPackageBox = (pkg: Lumber | null, index: number) => (
+    <TouchableOpacity 
+      onPress={() => pkg && showComments(pkg)} 
+      style={styles.box}
+      key={pkg ? pkg.id : `empty-${index}`}
+    >
       <Text style={styles.boxTitle}>{index === 0 ? 'Current Package' : `Next Package ${index}`}</Text>
-      <Text>Vendor: {pkg.vendor}</Text>
-      <Text>Grade: {pkg.grade}</Text>
-      <Text>Date: {pkg.date}</Text>
+      {pkg ? (
+        <>
+          <Text style={styles.text}>Vendor: {pkg.vendor}</Text>
+          <Text style={styles.text}>Grade: {pkg.grade}</Text>
+          <Text style={styles.text}>Date: {pkg.date}</Text>
+          <Text style={styles.text}>Comments: {pkg.comments || 'No comments'}</Text>
+        </>
+      ) : (
+        <Text style={styles.text}>No package</Text>
+      )}
     </TouchableOpacity>
   );
 
@@ -49,11 +60,7 @@ export default function RipLineScreen() {
     <PaperProvider>
       <ScrollView style={commonStyles.container}>
         <Text style={commonStyles.title}>Rip Line Production</Text>
-        {infeedQueue.length > 0 ? (
-          infeedQueue.map((pkg, index) => renderPackageBox(pkg, index))
-        ) : (
-          <Text>No packages in the queue</Text>
-        )}
+        {infeedQueue.map((pkg, index) => renderPackageBox(pkg, index))}
         <Portal>
           <Modal visible={modalVisible} onDismiss={() => setModalVisible(false)} contentContainerStyle={styles.modalContent}>
             <Text style={styles.modalTitle}>Comments</Text>
@@ -77,12 +84,20 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 1,
     borderColor: '#ddd',
-    padding: 10,
-    marginBottom: 10,
+    padding: 15,
+    marginBottom: 15,
+    backgroundColor: '#f0f0f0',
+    minHeight: 150, // Increase box size
   },
   boxTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333', // Darker color for better contrast
+  },
+  text: {
+    fontSize: 16,
+    color: '#333', // Darker color for better contrast
     marginBottom: 5,
   },
   modalContent: {
@@ -92,9 +107,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#333', // Darker color for better contrast
   },
   input: {
     marginBottom: 10,

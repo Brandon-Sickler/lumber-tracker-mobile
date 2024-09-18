@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { Text, Button, Modal, Portal, Provider as PaperProvider, TextInput } from 'react-native-paper';
-import { useLumber } from '@/context/LumberContext';
+import { useLumber, Lumber } from '@/context/LumberContext';
 import { commonStyles } from '../styles/commonStyles';
 
 export default function InfeedQueueScreen() {
-  const { lumber, moveLumberToInfeed, completeInfeedItem } = useLumber();
-  const [queue, setQueue] = useState([]);
+  const { lumber, moveLumberToInfeed, completeInfeedItem, getInfeedQueue, findLumberById, removeFromInfeedQueue } = useLumber();
+  const [queue, setQueue] = useState<(Lumber | null)[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchId, setSearchId] = useState('');
-  const [selectedBoxIndex, setSelectedBoxIndex] = useState(null);
 
   useEffect(() => {
     updateQueue();
   }, [lumber]);
 
   const updateQueue = () => {
-    const infeedItems = lumber.filter(item => item.status === 'infeed').slice(0, 4);
-    setQueue(infeedItems as React.SetStateAction<never[]>);
+    setQueue(getInfeedQueue());
   };
 
-  const showModal = (index) => {
-    setSelectedBoxIndex(index);
+  const showModal = () => {
     setModalVisible(true);
   };
 
@@ -30,30 +27,61 @@ export default function InfeedQueueScreen() {
     setSearchId('');
   };
 
-  const searchInventory = () => {
-    const foundLumber = lumber.find(item => item.id === searchId && item.status === 'kiln');
+  const handleSearch = () => {
+    const foundLumber = findLumberById(searchId);
     if (foundLumber) {
       Alert.alert(
-        "Confirm Package",
-        `Add package ${foundLumber.id} to infeed queue?`,
+        "Package Found",
+        `Do you want to move package ${foundLumber.id} to infeed?`,
         [
           { text: "Cancel", style: "cancel" },
-          { text: "Confirm", onPress: () => addToQueue(foundLumber) }
+          { 
+            text: "Yes", 
+            onPress: () => {
+              moveLumberToInfeed(foundLumber.id);
+              updateQueue();
+            }
+          }
         ]
       );
     } else {
-      Alert.alert("Not Found", "Package not found or not in kiln.");
+      Alert.alert("Not Found", "No package found with this ID.");
     }
   };
 
-  const addToQueue = (pkg) => {
-    moveLumberToInfeed(pkg.id);
-    hideModal();
-    updateQueue();
+  const handleLongPress = (pkg: Lumber) => {
+    Alert.alert(
+      "Confirm Deletion",
+      `Are you sure you want to remove package ${pkg.id} from the queue?`,
+      [
+        { text: "Cancel", style: "cancel" },
+        { 
+          text: "Delete", 
+          onPress: () => {
+            Alert.alert(
+              "Final Confirmation",
+              "Are you absolutely sure? This action cannot be undone.",
+              [
+                { text: "Cancel", style: "cancel" },
+                { 
+                  text: "Yes, Delete", 
+                  onPress: () => {
+                    removeFromInfeedQueue(pkg.id);
+                    updateQueue();
+                    Alert.alert("Success", "Package has been removed from the queue.");
+                  },
+                  style: "destructive"
+                }
+              ]
+            );
+          }
+        }
+      ]
+    );
   };
 
   const completeFirstItem = () => {
-    if (queue.length > 0) {
+    if (queue.length > 0 && queue[0]) {
       Alert.alert(
         "Confirm Completion",
         "Are you sure you want to mark this package as finished?",
@@ -62,12 +90,8 @@ export default function InfeedQueueScreen() {
           { 
             text: "Confirm", 
             onPress: () => {
-              if (queue.length > 0 && queue[0]) {
-                completeInfeedItem((queue[0] as { id: string }).id);
-                updateQueue();
-              } else {
-                console.error('Queue is empty');
-              }
+              completeInfeedItem(queue[0]!.id);
+              updateQueue();
             }
           }
         ]
@@ -75,40 +99,37 @@ export default function InfeedQueueScreen() {
     }
   };
 
-  const renderPackageBox = (pkg, index) => (
-    <TouchableOpacity 
-      onPress={() => !pkg && showModal(index)} 
+  const renderPackageBox = (pkg: Lumber | null, index: number) => (
+    <Pressable
+      onLongPress={() => index > 0 && pkg && handleLongPress(pkg)}
+      delayLongPress={1000} // 1 second long press
       style={styles.box}
     >
       {pkg ? (
         <>
-          <Text>Vendor: {pkg.vendor}</Text>
-          <Text>Grade: {pkg.grade}</Text>
-          <Text>Date: {pkg.date}</Text>
-          <Text>Comments: {pkg.comments}</Text>
+          <Text style={styles.text}>Vendor: {pkg.vendor}</Text>
+          <Text style={styles.text}>Grade: {pkg.grade}</Text>
+          <Text style={styles.text}>Date: {pkg.date}</Text>
+          <Text style={styles.text}>Comments: {pkg.comments || 'No comments'}</Text>
         </>
       ) : (
-        <Text>Tap to add package</Text>
+        <Button onPress={showModal}>Add New</Button>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 
   return (
     <PaperProvider>
       <ScrollView style={commonStyles.container}>
         <Text style={commonStyles.title}>Infeed Queue</Text>
-        {queue.length > 0 ? (
-          queue.map((pkg, index) => (
-            <View key={index}>
-              {renderPackageBox(pkg, index)}
-              {index === 0 && (
-                <Button onPress={completeFirstItem}>Finished</Button>
-              )}
-            </View>
-          ))
-        ) : (
-          <Text>No packages in the queue</Text>
-        )}
+        {queue.map((pkg, index) => (
+          <View key={index}>
+            {renderPackageBox(pkg, index)}
+            {index === 0 && pkg && (
+              <Button onPress={completeFirstItem}>Finished</Button>
+            )}
+          </View>
+        ))}
         <Portal>
           <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.modalContent}>
             <Text style={styles.modalTitle}>Add New Package</Text>
@@ -118,7 +139,7 @@ export default function InfeedQueueScreen() {
               onChangeText={setSearchId}
               style={styles.input}
             />
-            <Button onPress={searchInventory}>Search</Button>
+            <Button onPress={handleSearch}>Search</Button>
           </Modal>
         </Portal>
       </ScrollView>
@@ -131,8 +152,15 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 1,
     borderColor: '#ddd',
-    padding: 10,
-    marginBottom: 10,
+    padding: 15,
+    marginBottom: 15,
+    backgroundColor: '#f0f0f0',
+    minHeight: 150, // Increase box size
+  },
+  text: {
+    fontSize: 16,
+    color: '#333', // Darker color for better contrast
+    marginBottom: 5,
   },
   modalContent: {
     backgroundColor: 'white',
@@ -141,9 +169,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#333', // Darker color for better contrast
   },
   input: {
     marginBottom: 10,
