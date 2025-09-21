@@ -1,14 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View, StyleSheet, Image, Platform } from 'react-native';
 
-import { Collapsible } from '@/src/components/Collapsible';
-import { ExternalLink } from '@/src/components/ExternalLink';
-import ParallaxScrollView from '@/src/components/ParallaxScrollView';
-import { ThemedText } from '@/src/components/ThemedText';
-import { ThemedView } from '@/src/components/ThemedView';
+import { Collapsible } from '@/components/Collapsible';
+import { ExternalLink } from '@/components/ExternalLink';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 import React from 'react';
 import { Text } from 'react-native-paper';
-import { useInventory } from '@/app/context/InventoryContext';
+import { useInventory } from '@/context/InventoryContext';
 
 export default function ExploreScreen() {
   const { inventory } = useInventory();
@@ -16,78 +16,58 @@ export default function ExploreScreen() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+      headerImage={<Ionicons size={310} name="leaf" style={styles.headerImage} />}>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+        <ThemedText type="title">Lumber Processing Guide</ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
+      <ThemedText>Learn about the lumber processing workflow and how to use this app effectively.</ThemedText>
+      
+      <Collapsible title="Processing Stations">
         <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+          The lumber processing workflow includes these key stations:
         </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
+        <ThemedText>• <ThemedText type="defaultSemiBold">Green Lumber</ThemedText> - Initial receipt and logging</ThemedText>
+        <ThemedText>• <ThemedText type="defaultSemiBold">Infeed Queue</ThemedText> - Queue management for processing</ThemedText>
+        <ThemedText>• <ThemedText type="defaultSemiBold">Rip Line</ThemedText> - Production line operations</ThemedText>
+        <ThemedText>• <ThemedText type="defaultSemiBold">Air-Drying</ThemedText> - Natural drying process</ThemedText>
+        <ThemedText>• <ThemedText type="defaultSemiBold">Kiln Operations</ThemedText> - Kiln-drying management</ThemedText>
+        <ThemedText>• <ThemedText type="defaultSemiBold">KD Lumber</ThemedText> - Finished product tracking</ThemedText>
       </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
+
+      <Collapsible title="Current Inventory">
         <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
+          You currently have <ThemedText type="defaultSemiBold">{inventory.length}</ThemedText> items in your inventory.
         </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
         <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
+          Total footage: <ThemedText type="defaultSemiBold">
+            {inventory.reduce((sum, item) => sum + item.amount, 0).toLocaleString()} board feet
           </ThemedText>
         </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
       </Collapsible>
-      <Collapsible title="Light and dark mode components">
+
+      <Collapsible title="Best Practices">
         <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
+          • Always verify lumber IDs before processing
         </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
+        <ThemedText>
+          • Update status promptly when moving lumber between stations
+        </ThemedText>
+        <ThemedText>
+          • Add detailed comments for quality control
+        </ThemedText>
+        <ThemedText>
+          • Regularly review inventory for accuracy
+        </ThemedText>
       </Collapsible>
-      <Collapsible title="Animations">
+
+      <Collapsible title="Mobile Features">
         <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
+          This app is optimized for mobile use with:
         </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
+        <ThemedText>• Touch-friendly interface</ThemedText>
+        <ThemedText>• Offline capability</ThemedText>
+        <ThemedText>• Cross-platform support (iOS, Android, Web)</ThemedText>
+        <ThemedText>• Real-time data synchronization</ThemedText>
       </Collapsible>
     </ParallaxScrollView>
   );
