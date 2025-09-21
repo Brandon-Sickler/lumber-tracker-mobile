@@ -167,7 +167,9 @@ The app uses a custom theme with a neon orange primary color (`rgb(255, 140, 0)`
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2024 Brandon Sickler
 
 ## 🆘 Support
 
