@@ -1,60 +1,188 @@
-# Welcome to your Expo app 👋
+# Lumber Tracker Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A comprehensive mobile application for tracking lumber through various processing stages in a lumber mill. Built with React Native and Expo, this app helps manage inventory and monitor lumber from initial receipt through final processing.
 
-## Get started
+## 🏭 Overview
 
-1. Install dependencies
+The Lumber Tracker Mobile app provides a complete solution for managing lumber inventory across different processing stations:
 
+- **Green Lumber Received** - Track incoming lumber shipments
+- **Infeed Queue** - Manage lumber waiting for processing
+- **Rip Line Production** - Monitor cutting and processing operations
+- **Air-Drying** - Track lumber in air-drying stages
+- **Kiln Operations** - Manage kiln-drying processes
+- **KD Lumber** - Track kiln-dried finished lumber
+
+## ✨ Features
+
+- **Multi-Station Tracking**: Monitor lumber through 6 different processing stages
+- **Inventory Management**: Real-time inventory tracking with detailed statistics
+- **Status Updates**: Easy status transitions between processing stages
+- **Barcode Scanning**: Quick lumber identification using camera/barcode scanner
+- **Data Persistence**: Local storage with AsyncStorage for offline capability
+- **Modern UI**: Clean, intuitive interface built with React Native Paper
+- **Cross-Platform**: Runs on iOS, Android, and Web
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- Expo CLI (`npm install -g @expo/cli`)
+- iOS Simulator (for iOS development) or Android Studio (for Android development)
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone <repository-url>
+   cd lumber-tracker-mobile
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. Run on your preferred platform:
+   - **iOS**: Press `i` in the terminal or scan QR code with Camera app
+   - **Android**: Press `a` in the terminal or scan QR code with Expo Go app
+   - **Web**: Press `w` in the terminal
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📱 App Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Main Screens
+- **Home**: Dashboard with inventory overview and station navigation
+- **Inventory**: Detailed inventory management
+- **Stations**: Individual screens for each processing stage
 
-## Get a fresh project
+### Processing Stations
+1. **Green Lumber** - Initial lumber receipt and logging
+2. **Infeed Queue** - Queue management for processing
+3. **Rip Line** - Production line operations
+4. **Air-Drying** - Natural drying process tracking
+5. **Kiln Operations** - Kiln-drying management
+6. **KD Lumber** - Finished product tracking
 
-When you're ready, run:
+### Data Models
 
-```bash
-npm run reset-project
+**Lumber Item Structure:**
+```typescript
+interface Lumber {
+  id: string;
+  species: string;        // Wood species (Pine, Oak, Maple, etc.)
+  grade: string;          // Quality grade (A, B, C, D)
+  vendor: string;         // Supplier information
+  footage: string;        // Board footage
+  comments: string;       // Additional notes
+  date: string;          // Processing date
+  courses: string;       // Number of courses
+  status: 'green' | 'air-drying' | 'kiln' | 'kd' | 'infeed' | 'rip';
+  kilnName?: string;     // Specific kiln identifier
+  loadNumber: string;    // Unique load identifier
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🛠️ Technology Stack
 
-## Learn more
+- **Framework**: React Native with Expo
+- **Navigation**: Expo Router (file-based routing)
+- **UI Library**: React Native Paper (Material Design 3)
+- **State Management**: React Context API
+- **Storage**: AsyncStorage for local data persistence
+- **Forms**: React Hook Form
+- **Charts**: React Native Chart Kit
+- **Camera**: Expo Camera & Barcode Scanner
+- **Language**: TypeScript
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📁 Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+lumber-tracker-mobile/
+├── app/                    # Main application screens
+│   ├── (tabs)/            # Tab navigation screens
+│   ├── stations/          # Processing station screens
+│   └── modal.tsx          # Modal components
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── context/          # React Context providers
+│   ├── hooks/            # Custom React hooks
+│   ├── navigation/       # Navigation configuration
+│   ├── screens/          # Additional screens
+│   ├── styles/           # Global styles and themes
+│   └── types/            # TypeScript type definitions
+├── assets/               # Images, fonts, and static assets
+└── __tests__/           # Test files
+```
 
-## Join the community
+## 🔧 Available Scripts
 
-Join our community of developers creating universal apps.
+- `npm start` - Start the Expo development server
+- `npm run android` - Run on Android device/emulator
+- `npm run ios` - Run on iOS device/simulator
+- `npm run web` - Run in web browser
+- `npm test` - Run test suite
+- `npm run lint` - Run ESLint
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🎨 Customization
 
+The app uses a custom theme with a neon orange primary color (`rgb(255, 140, 0)`). You can customize colors and styling in:
+- `app/_layout.tsx` - Main theme configuration
+- `src/styles/` - Global style definitions
+- `src/constants/Colors.ts` - Color palette
 
+## 📊 Features in Detail
 
+### Inventory Management
+- Real-time inventory tracking
+- Status-based filtering
+- Detailed statistics and reporting
+- Bulk operations support
 
+### Station Operations
+- Intuitive workflow management
+- Status transition tracking
+- Process-specific data entry
+- Quality control integration
 
+### Data Persistence
+- Local storage with AsyncStorage
+- Offline capability
+- Data synchronization ready
+- Backup and restore functionality
 
+## 🤝 Contributing
 
-## Environment Setup
-1. Copy `.env.example` to `.env`
-2. Update the values in `.env` with your actual configuration
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the Expo documentation: [docs.expo.dev](https://docs.expo.dev/)
+- Join the Expo community: [chat.expo.dev](https://chat.expo.dev/)
+
+## 🔮 Future Enhancements
+
+- [ ] Cloud synchronization
+- [ ] Advanced reporting and analytics
+- [ ] Multi-user support with roles
+- [ ] Integration with external lumber management systems
+- [ ] Advanced barcode/QR code features
+- [ ] Photo documentation for quality control
+- [ ] Export functionality (PDF, Excel)
+- [ ] Push notifications for status updates
