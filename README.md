@@ -188,3 +188,16 @@ For support and questions:
 - [ ] Photo documentation for quality control
 - [ ] Export functionality (PDF, Excel)
 - [ ] Push notifications for status updates
+
+## 👨‍💻 About the Author
+
+This project was created and is maintained by **Brandon Sickler**.
+
+<div align="center">
+
+[![GitHub](https://img.shields.io/badge/GitHub-@Brandon--Sickler-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Brandon-Sickler)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Brandon%20Sickler-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/brandonsicklerexpat/)
+
+</div>
+
+*Passionate about building innovative solutions that solve real-world problems in the lumber and manufacturing industries. Connect with me to discuss technology, lumber processing, or potential collaborations!*
