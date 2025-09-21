@@ -159,11 +159,16 @@ The app uses a custom theme with a neon orange primary color (`rgb(255, 140, 0)`
 
 ## 🤝 Contributing
 
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to get started.
+
+**Quick Start:**
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+For detailed information about our development process, coding standards, and how to contribute effectively, please read our [Contributing Guide](CONTRIBUTING.md).
 
 ## 📄 License
 
