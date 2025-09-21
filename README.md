@@ -47,7 +47,7 @@ The Lumber Tracker Mobile app provides a complete solution for managing lumber i
 
 3. Start the development server
    ```bash
-   npx expo start
+    npx expo start
    ```
 
 4. Run on your preferred platform:
@@ -91,15 +91,56 @@ interface Lumber {
 
 ## 🛠️ Technology Stack
 
-- **Framework**: React Native with Expo
-- **Navigation**: Expo Router (file-based routing)
-- **UI Library**: React Native Paper (Material Design 3)
-- **State Management**: React Context API
-- **Storage**: AsyncStorage for local data persistence
-- **Forms**: React Hook Form
-- **Charts**: React Native Chart Kit
-- **Camera**: Expo Camera & Barcode Scanner
-- **Language**: TypeScript
+### **Core Framework & Platform**
+- **Framework**: React Native 0.74.5 with Expo SDK 51.0.32
+- **Language**: TypeScript 5.3.3 (strict mode enabled)
+- **Cross-Platform**: iOS, Android, and Web support
+- **Development**: Expo CLI for streamlined workflow
+
+### **UI/UX & Design System**
+- **UI Framework**: React Native Paper 5.12.5 (Material Design 3)
+- **Custom Theme**: Neon orange primary color (`rgb(255, 140, 0)`)
+- **Icons**: Expo Vector Icons (Ionicons)
+- **Typography**: SpaceMono font for custom styling
+- **Styling**: StyleSheet with Flexbox responsive layout
+
+### **Navigation & Routing**
+- **Navigation**: Expo Router 3.5.23 (file-based routing)
+- **Stack Navigation**: Screen transitions and modal presentation
+- **Tab Navigation**: Bottom tab bar with custom icons
+- **Deep Linking**: URL-based navigation support
+
+### **State Management & Data**
+- **State Management**: React Context API with custom hooks
+- **Data Persistence**: AsyncStorage for local storage
+- **Forms**: React Hook Form for form state management
+- **Date Handling**: Date-fns for date manipulation
+
+### **Mobile-Specific Features**
+- **Camera**: Expo Camera for barcode scanning
+- **Barcode Scanner**: Expo Barcode Scanner integration
+- **Keyboard Handling**: KeyboardAvoidingView for better UX
+- **Touch Gestures**: React Native Gesture Handler
+- **Safe Areas**: React Native Safe Area Context
+
+### **Development Tools & Quality**
+- **Build System**: Metro bundler with Babel transpilation
+- **Code Quality**: ESLint, TypeScript strict mode, Jest testing
+- **Module Resolution**: Custom path aliases (`@/components`, `@/utils`)
+- **Testing**: Jest with React Test Renderer
+
+### **Performance & Animation**
+- **Animations**: React Native Reanimated for smooth animations
+- **Charts**: React Native Chart Kit for data visualization
+- **SVG**: React Native SVG for scalable graphics
+- **PDF Generation**: React Native HTML to PDF
+
+### **Architecture Patterns**
+- **Component Architecture**: Functional components with hooks
+- **Custom Hooks**: Reusable logic (`useLumber`, `useInventory`)
+- **Context Providers**: Global state management
+- **Error Boundaries**: Comprehensive error handling
+- **Type Safety**: Full TypeScript coverage with strict mode
 
 ## 📁 Project Structure
 
@@ -183,16 +224,82 @@ For support and questions:
 - Check the Expo documentation: [docs.expo.dev](https://docs.expo.dev/)
 - Join the Expo community: [chat.expo.dev](https://chat.expo.dev/)
 
+## 🏗️ Architecture & Design Patterns
+
+### **Component Architecture**
+- **Functional Components**: Modern React patterns with hooks
+- **Custom Hooks**: Reusable business logic (`useLumber`, `useInventory`)
+- **Context Providers**: Global state management with React Context
+- **Error Boundaries**: Comprehensive error handling and recovery
+
+### **File Organization**
+```
+src/
+├── components/     # Reusable UI components
+├── context/        # State management (Lumber, Inventory, Process)
+├── hooks/          # Custom React hooks
+├── screens/        # Screen components
+├── types/          # TypeScript definitions
+├── utils/          # Helper functions
+├── api/            # API utilities (ready for backend integration)
+├── constants/      # App constants and configuration
+└── styles/         # Global styles and themes
+
+app/
+├── (tabs)/         # Tab-based navigation screens
+├── stations/       # Lumber processing station screens
+└── styles/         # App-specific styles
+```
+
+### **Data Flow**
+- **Unidirectional Data Flow**: React's standard data flow pattern
+- **Context-based State**: Centralized state management
+- **Local Storage**: AsyncStorage for data persistence
+- **Type Safety**: Full TypeScript coverage with strict mode
+
+### **Industry-Specific Design**
+- **Workflow-based UI**: Matches real lumber processing operations
+- **Status-driven Logic**: Lumber status transitions between stations
+- **Quality Control**: Comments and notes system for tracking
+- **Inventory Management**: Comprehensive tracking and reporting
+
+## 🎓 Technical Skills Demonstrated
+
+### **Frontend Development**
+- **React Native**: Cross-platform mobile development
+- **TypeScript**: Type-safe development with strict mode
+- **Modern JavaScript**: ES6+ features and async/await patterns
+- **Material Design**: Professional UI/UX implementation
+
+### **Mobile Development**
+- **Cross-platform**: iOS, Android, and Web support
+- **Native Integration**: Camera, barcode scanning, device APIs
+- **Performance**: Optimized rendering and smooth animations
+- **Responsive Design**: Adaptive layouts for different screen sizes
+
+### **Software Engineering**
+- **Clean Architecture**: Separation of concerns and modular design
+- **Code Quality**: ESLint, TypeScript, comprehensive testing setup
+- **Documentation**: Detailed README, contributing guidelines, code comments
+- **Version Control**: Professional Git workflow and repository management
+
+### **Industry Knowledge**
+- **Lumber Processing**: Understanding of manufacturing workflows
+- **Business Logic**: Status management, inventory tracking, quality control
+- **Process Optimization**: Streamlined mobile workflow for field operations
+
 ## 🔮 Future Enhancements
 
-- [ ] Cloud synchronization
-- [ ] Advanced reporting and analytics
-- [ ] Multi-user support with roles
+- [ ] Cloud synchronization with backend API
+- [ ] Advanced reporting and analytics dashboard
+- [ ] Multi-user support with role-based access
 - [ ] Integration with external lumber management systems
-- [ ] Advanced barcode/QR code features
+- [ ] Advanced barcode/QR code features with inventory lookup
 - [ ] Photo documentation for quality control
-- [ ] Export functionality (PDF, Excel)
-- [ ] Push notifications for status updates
+- [ ] Export functionality (PDF reports, Excel spreadsheets)
+- [ ] Push notifications for status updates and alerts
+- [ ] Real-time collaboration between multiple users
+- [ ] Advanced search and filtering capabilities
 
 ## 👨‍💻 About the Author
 
