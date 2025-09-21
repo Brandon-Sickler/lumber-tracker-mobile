@@ -1,0 +1,71 @@
+name: ❓ Question
+description: Ask a question about the project
+title: "[QUESTION]: "
+labels: ["question", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about the Lumber Tracker Mobile project? We're here to help!
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: Ask your question here...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of question is this?
+      options:
+        - How to use the app
+        - Development/Technical
+        - Installation/Setup
+        - Lumber industry workflow
+        - Contributing to the project
+        - Bug or issue related
+        - Feature request clarification
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant context about your question.
+      placeholder: |
+        - What are you trying to accomplish?
+        - What have you tried so far?
+        - Any relevant background information...
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment (if applicable)
+      description: If this is a technical question, please provide environment details.
+      placeholder: |
+        - OS: Windows 11
+        - Node.js version: 18.17.0
+        - Expo CLI version: 6.3.10
+        - Device: iPhone 14 Pro
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues and discussions
+          required: true
+        - label: I have checked the README and documentation
+          required: true
+        - label: I have provided clear context for my question
+          required: true

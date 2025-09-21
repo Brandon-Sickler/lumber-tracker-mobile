@@ -10,7 +10,7 @@ interface Package {
   grade: string;
   date: string;
   comments?: string;
-  // Add any other properties your package might have
+
 }
 
 export default function RipLineScreen() {
@@ -30,8 +30,6 @@ export default function RipLineScreen() {
   };
 
   const addComment = () => {
-    // Here you would update the comment in your global state
-    // For now, we'll just close the modal
     setModalVisible(false);
     setNewComment('');
   };

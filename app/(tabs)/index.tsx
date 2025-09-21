@@ -117,5 +117,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-// Assuming styles is already defined in your original file
+
 
