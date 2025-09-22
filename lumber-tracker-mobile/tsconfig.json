@@ -17,7 +17,7 @@
     "esModuleInterop": true,
     "jsx": "react-native",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
