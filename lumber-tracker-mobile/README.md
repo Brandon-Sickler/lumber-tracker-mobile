@@ -1,6 +1,8 @@
-# EnVtory - Mobile Application
+# EnVtory Mobile - React Native Application
 
-A comprehensive mobile application for tracking lumber through various processing stages in a lumber mill. This is the mobile component of EnVtory, built with React Native and Expo, helping manage inventory and monitor lumber from initial receipt through final processing.
+The mobile component of the EnVtory lumber processing management system. Built with React Native and Expo, this application provides field workers with an intuitive interface for tracking lumber through various processing stages.
+
+> **Note**: This is part of the larger EnVtory system. See the main [README.md](../README.md) for the complete project overview.
 
 ## 🏭 Overview
 

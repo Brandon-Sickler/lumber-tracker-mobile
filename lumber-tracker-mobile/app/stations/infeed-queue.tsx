@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { Text, Button, Modal, Portal, Provider as PaperProvider, TextInput } from 'react-native-paper';
 import { useLumber, Lumber } from '@/context/LumberContext';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 
 export default function InfeedQueueScreen() {
   const { lumber, moveLumberToInfeed, completeInfeedItem, getInfeedQueue, findLumberById, removeFromInfeedQueue } = useLumber();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
 import { Text, Card, Title, Paragraph, Button, useTheme, ActivityIndicator } from 'react-native-paper';
 import { useInventory } from '@/context/InventoryContext';
 import { useRouter } from 'expo-router';
@@ -35,45 +35,51 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Inventory Overview</Title>
-          <Paragraph>Total Items: {inventory.length}</Paragraph>
-        </Card.Content>
-      </Card>
-      
-      <View style={styles.statsContainer}>
-        <Card style={styles.statCard}>
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
+      <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+        <Card style={styles.card}>
           <Card.Content>
-            <Title>Types</Title>
-            <Paragraph>{new Set(inventory.map(item => item.type)).size}</Paragraph>
+            <Title>Inventory Overview</Title>
+            <Paragraph>Total Items: {inventory.length}</Paragraph>
           </Card.Content>
         </Card>
-        <Card style={styles.statCard}>
-          <Card.Content>
-            <Title>Total Amount</Title>
-            <Paragraph>{inventory.reduce((sum, item) => sum + item.amount, 0)}</Paragraph>
-          </Card.Content>
-        </Card>
-      </View>
 
-      <View style={styles.stationsContainer}>
-        {stations.map((station, index) => (
-          <Button 
-            key={index}
-            mode="contained" 
-            style={styles.stationButton}
-            labelStyle={styles.buttonLabel}
-            onPress={() => router.push(station.route as any)}
-            buttonColor="rgba(255, 140, 0, 0.8)" // Neon orange with 80% opacity
-            accessibilityLabel={`Navigate to ${station.title}`}
-          >
-            {station.title}
-          </Button>
-        ))}
-      </View>
-    </ScrollView>
+        <View style={styles.statsContainer}>
+          <Card style={styles.statCard}>
+            <Card.Content>
+              <Title>Types</Title>
+              <Paragraph>{new Set(inventory.map(item => item.type)).size}</Paragraph>
+            </Card.Content>
+          </Card>
+          <Card style={styles.statCard}>
+            <Card.Content>
+              <Title>Total Amount</Title>
+              <Paragraph>{inventory.reduce((sum, item) => sum + item.amount, 0)}</Paragraph>
+            </Card.Content>
+          </Card>
+        </View>
+
+        <View style={styles.stationsContainer}>
+          {stations.map((station, index) => (
+            <Button
+              key={index}
+              mode="contained"
+              style={styles.stationButton}
+              labelStyle={styles.buttonLabel}
+              onPress={() => router.push(station.route as any)}
+              buttonColor="rgba(255, 140, 0, 0.8)" // Neon orange with 80% opacity
+              accessibilityLabel={`Navigate to ${station.title}`}
+            >
+              {station.title}
+            </Button>
+          ))}
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

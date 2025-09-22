@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TextInput as RNTextInput, Alert } from 'react-native';
 import { Text, Button, Modal, Portal, List } from 'react-native-paper';
 import { useLumber } from '@/context/LumberContext';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 
 export default function KilnOperationsScreen() {
   const { lumber, updateLumberStatus } = useLumber();

@@ -12,7 +12,8 @@
 
 // Example API configuration structure
 export const API_CONFIG = {
-  baseUrl: process.env.EXPO_PUBLIC_API_URL || 'https://api.lumbertracker.com',
+  baseUrl: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:5000',
+  apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL || 'http://localhost:5000/api',
   timeout: 10000,
   retries: 3,
 };

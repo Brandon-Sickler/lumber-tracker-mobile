@@ -1,70 +1,223 @@
-# EnVtory - Web Frontend
+# EnVtory Frontend - React Web Dashboard
 
-This is the web frontend component of EnVtory, a comprehensive lumber tracking and inventory management system. Built with React and Create React App, this application provides administrative access and reporting capabilities for lumber mill operations.
+The web dashboard component of the EnVtory lumber processing management system. Built with React, this application provides administrators and managers with comprehensive analytics, reporting, and system management capabilities.
 
-## Available Scripts
+> **Note**: This is part of the larger EnVtory system. See the main [README.md](../README.md) for the complete project overview.
 
-In the project directory, you can run:
+## 🌐 Overview
 
-### `npm start`
+The EnVtory Frontend provides a comprehensive web-based dashboard for managing lumber processing operations:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Analytics Dashboard** - Real-time insights and performance metrics
+- **User Management** - Role-based access control and user administration
+- **System Configuration** - Settings and preferences management
+- **Reporting Tools** - Generate and export detailed reports
+- **Data Visualization** - Charts and graphs for operational insights
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Features
 
-### `npm test`
+### 📊 **Analytics & Reporting**
+- Real-time inventory statistics
+- Processing efficiency metrics
+- Quality control reports
+- Performance dashboards
+- Export functionality (PDF, Excel)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 👥 **User Management**
+- Role-based access control
+- User authentication and authorization
+- Activity logging and audit trails
+- Permission management
 
-### `npm run build`
+### ⚙️ **System Administration**
+- Configuration management
+- System settings and preferences
+- Integration management
+- Backup and restore operations
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📱 **Responsive Design**
+- Mobile-friendly interface
+- Cross-browser compatibility
+- Adaptive layouts
+- Modern UI/UX design
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Technology Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **Core Technologies**
+- **React 18.2.0** - Modern React with hooks and functional components
+- **TypeScript 4.9.5** - Type-safe development
+- **React Router 6.8.1** - Client-side routing
+- **Material-UI 5.11.10** - Component library and design system
 
-### `npm run eject`
+### **State Management**
+- **React Context API** - Global state management
+- **React Hooks** - Local state and side effects
+- **Custom Hooks** - Reusable business logic
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Data & API**
+- **Axios** - HTTP client for API communication
+- **React Query** - Server state management and caching
+- **Formik** - Form handling and validation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **Development Tools**
+- **Create React App** - Development environment
+- **ESLint** - Code quality and consistency
+- **Prettier** - Code formatting
+- **Jest** - Testing framework
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
 
-## Learn More
+- Node.js (v16 or higher)
+- npm or yarn
+- Access to the EnVtory API backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Navigate to the frontend directory**
+   ```bash
+   cd lumber-tracker-frontend
+   ```
 
-### Code Splitting
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API endpoint and configuration
+   ```
 
-### Analyzing the Bundle Size
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. **Open your browser**
+   - Navigate to `http://localhost:3000`
+   - The application will automatically reload on changes
 
-### Making a Progressive Web App
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+lumber-tracker-frontend/
+├── public/                 # Static assets
+│   ├── index.html         # Main HTML template
+│   └── favicon.ico        # Site icon
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── pages/            # Page components
+│   ├── hooks/            # Custom React hooks
+│   ├── services/         # API services
+│   ├── utils/            # Utility functions
+│   ├── types/            # TypeScript type definitions
+│   ├── styles/           # Global styles and themes
+│   └── App.tsx           # Main application component
+├── package.json          # Dependencies and scripts
+└── README.md            # This file
+```
 
-### Advanced Configuration
+## 🔧 Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `npm start` - Start the development server
+- `npm run build` - Build the application for production
+- `npm test` - Run the test suite
+- `npm run lint` - Run ESLint for code quality
+- `npm run format` - Format code with Prettier
 
-### Deployment
+## 🎨 Customization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The application uses Material-UI with a custom theme. You can customize:
 
-### `npm run build` fails to minify
+- **Colors**: Update the theme palette in `src/styles/theme.ts`
+- **Typography**: Modify font settings in the theme configuration
+- **Components**: Override Material-UI component styles
+- **Layout**: Adjust the main layout in `src/App.tsx`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📊 Features in Detail
+
+### Dashboard
+- Real-time inventory overview
+- Processing station status
+- Performance metrics and KPIs
+- Quick action buttons
+
+### Analytics
+- Interactive charts and graphs
+- Historical data analysis
+- Trend identification
+- Custom date range filtering
+
+### User Management
+- User creation and editing
+- Role assignment and permissions
+- Activity monitoring
+- Security settings
+
+### Reporting
+- Automated report generation
+- Custom report templates
+- Export options (PDF, Excel, CSV)
+- Scheduled reporting
+
+## 🔗 API Integration
+
+The frontend communicates with the EnVtory API backend through:
+
+- **RESTful API calls** using Axios
+- **Real-time updates** via WebSocket connections
+- **Authentication** using JWT tokens
+- **Error handling** with user-friendly messages
+
+## 🧪 Testing
+
+The application includes comprehensive testing:
+
+- **Unit Tests** - Component and utility function testing
+- **Integration Tests** - API integration testing
+- **E2E Tests** - End-to-end user workflow testing
+- **Visual Regression Tests** - UI consistency testing
+
+## 🚀 Deployment
+
+### Development
+```bash
+npm start
+```
+
+### Production Build
+```bash
+npm run build
+```
+
+### Docker Deployment
+```bash
+docker build -t envtory-frontend .
+docker run -p 3000:3000 envtory-frontend
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the main [README.md](../README.md) for project overview
+- Review the React documentation: [reactjs.org](https://reactjs.org/)
+
+---
+
+**EnVtory Frontend** - *Web dashboard for lumber processing management*

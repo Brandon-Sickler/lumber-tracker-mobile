@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import { List, Text, Divider, useTheme } from 'react-native-paper';
 import { useInventory } from '@/context/InventoryContext'; // Updated
 
@@ -17,7 +17,11 @@ export default function InventoryScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
       <FlatList
         data={inventory}
         renderItem={renderItem}
@@ -29,7 +33,7 @@ export default function InventoryScreen() {
           </Text>
         )}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

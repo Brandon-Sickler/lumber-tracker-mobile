@@ -1,215 +1,251 @@
-# Lumber Tracker Mobile
+# EnVtory - Lumber Processing Management System
 
-A comprehensive mobile application for tracking lumber through various processing stages in a lumber mill. Built with React Native and Expo, this app helps manage inventory and monitor lumber from initial receipt through final processing.
+<div align="center">
 
-## 🏭 Overview
+![EnVtory Logo](https://img.shields.io/badge/EnVtory-Lumber%20Management-FF8C00?style=for-the-badge&logo=tree&logoColor=white)
 
-The Lumber Tracker Mobile app provides a complete solution for managing lumber inventory across different processing stations:
+**A comprehensive lumber processing management system with mobile, web, and API components**
 
-- **Green Lumber Received** - Track incoming lumber shipments
-- **Infeed Queue** - Manage lumber waiting for processing
-- **Rip Line Production** - Monitor cutting and processing operations
-- **Air-Drying** - Track lumber in air-drying stages
-- **Kiln Operations** - Manage kiln-drying processes
-- **KD Lumber** - Track kiln-dried finished lumber
+[![React Native](https://img.shields.io/badge/React%20Native-0.81.4-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactnative.dev/)
+[![Expo](https://img.shields.io/badge/Expo-54.0.9-000020?style=flat-square&logo=expo&logoColor=white)](https://expo.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
-## ✨ Features
+</div>
 
-- **Multi-Station Tracking**: Monitor lumber through 6 different processing stages
-- **Inventory Management**: Real-time inventory tracking with detailed statistics
-- **Status Updates**: Easy status transitions between processing stages
-- **Barcode Scanning**: Quick lumber identification using camera/barcode scanner
-- **Data Persistence**: Local storage with AsyncStorage for offline capability
-- **Modern UI**: Clean, intuitive interface built with React Native Paper
-- **Cross-Platform**: Runs on iOS, Android, and Web
+## 🏭 Project Overview
 
-## 🚀 Getting Started
+EnVtory is a comprehensive lumber processing management system designed to streamline operations in lumber mills and wood processing facilities. The system consists of three integrated components that work together to provide complete visibility and control over lumber processing workflows.
 
-### Prerequisites
+### 🎯 **Project Status: In Development**
 
-- Node.js (v16 or higher)
-- npm or yarn
-- Expo CLI (`npm install -g @expo/cli`)
-- iOS Simulator (for iOS development) or Android Studio (for Android development)
+> **Note for Potential Employers**: This is an active development project showcasing modern full-stack development skills. The system demonstrates proficiency in React Native, Node.js, MongoDB, and modern software engineering practices. While functional, it represents ongoing work and may contain features in various stages of completion.
 
-### Installation
+## 🏗️ System Architecture
 
-1. Clone the repository
-   ```bash
-   git clone <repository-url>
-   cd lumber-tracker-mobile
-   ```
-
-2. Install dependencies
-   ```bash
-   npm install
-   ```
-
-3. Start the development server
-   ```bash
-    npx expo start
-   ```
-
-4. Run on your preferred platform:
-   - **iOS**: Press `i` in the terminal or scan QR code with Camera app
-   - **Android**: Press `a` in the terminal or scan QR code with Expo Go app
-   - **Web**: Press `w` in the terminal
-
-## 📱 App Structure
-
-### Main Screens
-- **Home**: Dashboard with inventory overview and station navigation
-- **Inventory**: Detailed inventory management
-- **Stations**: Individual screens for each processing stage
-
-### Processing Stations
-1. **Green Lumber** - Initial lumber receipt and logging
-2. **Infeed Queue** - Queue management for processing
-3. **Rip Line** - Production line operations
-4. **Air-Drying** - Natural drying process tracking
-5. **Kiln Operations** - Kiln-drying management
-6. **KD Lumber** - Finished product tracking
-
-### Data Models
-
-**Lumber Item Structure:**
-```typescript
-interface Lumber {
-  id: string;
-  species: string;        // Wood species (Pine, Oak, Maple, etc.)
-  grade: string;          // Quality grade (A, B, C, D)
-  vendor: string;         // Supplier information
-  footage: string;        // Board footage
-  comments: string;       // Additional notes
-  date: string;          // Processing date
-  courses: string;       // Number of courses
-  status: 'green' | 'air-drying' | 'kiln' | 'kd' | 'infeed' | 'rip';
-  kilnName?: string;     // Specific kiln identifier
-  loadNumber: string;    // Unique load identifier
-}
 ```
+EnVtory/
+├── 📱 lumber-tracker-mobile/     # React Native mobile application
+├── 🌐 lumber-tracker-frontend/   # React web dashboard
+├── 🔧 LumberTrackerAPI/          # Node.js/Express backend API
+└── 📋 README.md                  # This file
+```
+
+## 🚀 Components
+
+### 📱 **Mobile Application** (`lumber-tracker-mobile/`)
+- **Technology**: React Native with Expo
+- **Purpose**: Field operations and real-time data entry
+- **Features**: Offline capability, station management, data entry forms
+- **Platform**: iOS, Android, Web
+
+### 🌐 **Web Dashboard** (`lumber-tracker-frontend/`)
+- **Technology**: React with modern web technologies
+- **Purpose**: Administrative dashboard and reporting
+- **Features**: Analytics, user management, system configuration
+- **Platform**: Web browsers
+
+### 🔧 **Backend API** (`LumberTrackerAPI/`)
+- **Technology**: Node.js with Express and MongoDB
+- **Purpose**: Data management and business logic
+- **Features**: RESTful API, database operations, authentication
+- **Database**: MongoDB Atlas (cloud)
+
+## ✨ Key Features
+
+### 🏭 **Lumber Processing Workflow**
+- **6 Processing Stations**: Green Lumber → Infeed Queue → Rip Line → Air-Drying → Kiln Operations → KD Lumber
+- **Status Tracking**: Real-time status updates and transitions
+- **Quality Control**: Comments, notes, and quality assessments
+- **Inventory Management**: Comprehensive tracking and reporting
+- **Data Entry Forms**: Streamlined input for lumber information
+
+### 📊 **Data Management**
+- **Real-time Sync**: Mobile and web components stay synchronized
+- **Offline Capability**: Mobile app works without internet connection
+- **Cloud Storage**: MongoDB Atlas for reliable data persistence
+- **Backup & Recovery**: Automated data protection
+
+### 🎨 **User Experience**
+- **Modern UI**: Material Design 3 with custom neon orange theme
+- **Cross-Platform**: Consistent experience across devices
+- **Responsive Design**: Optimized for mobile and desktop
+- **Intuitive Navigation**: Workflow-based user interface
 
 ## 🛠️ Technology Stack
 
-### **Core Framework & Platform**
-- **Framework**: React Native 0.74.5 with Expo SDK 51.0.32
-- **Language**: TypeScript 5.3.3 (strict mode enabled)
-- **Cross-Platform**: iOS, Android, and Web support
-- **Development**: Expo CLI for streamlined workflow
+### **Frontend Technologies**
+- **React Native 0.81.4** - Cross-platform mobile development
+- **Expo SDK 54.0.9** - Development platform and tools
+- **TypeScript 5.3.3** - Type-safe development
+- **React Native Paper** - Material Design components
+- **Expo Router** - File-based navigation
 
-### **UI/UX & Design System**
-- **UI Framework**: React Native Paper 5.12.5 (Material Design 3)
-- **Custom Theme**: Neon orange primary color (`rgb(255, 140, 0)`)
-- **Icons**: Expo Vector Icons (Ionicons)
-- **Typography**: SpaceMono font for custom styling
-- **Styling**: StyleSheet with Flexbox responsive layout
+### **Backend Technologies**
+- **Node.js** - Server runtime
+- **Express.js** - Web framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **CORS** - Cross-origin resource sharing
 
-### **Navigation & Routing**
-- **Navigation**: Expo Router 3.5.23 (file-based routing)
-- **Stack Navigation**: Screen transitions and modal presentation
-- **Tab Navigation**: Bottom tab bar with custom icons
-- **Deep Linking**: URL-based navigation support
+### **Development Tools**
+- **Git** - Version control
+- **npm** - Package management
+- **ESLint** - Code quality
+- **Jest** - Testing framework
+- **Metro** - React Native bundler
 
-### **State Management & Data**
-- **State Management**: React Context API with custom hooks
-- **Data Persistence**: AsyncStorage for local storage
-- **Forms**: React Hook Form for form state management
-- **Date Handling**: Date-fns for date manipulation
+## 📱 Screenshots
 
-### **Mobile-Specific Features**
-- **Camera**: Expo Camera for barcode scanning
-- **Barcode Scanner**: Expo Barcode Scanner integration
-- **Keyboard Handling**: KeyboardAvoidingView for better UX
-- **Touch Gestures**: React Native Gesture Handler
-- **Safe Areas**: React Native Safe Area Context
+<div align="center">
 
-### **Development Tools & Quality**
-- **Build System**: Metro bundler with Babel transpilation
-- **Code Quality**: ESLint, TypeScript strict mode, Jest testing
-- **Module Resolution**: Custom path aliases (`@/components`, `@/utils`)
-- **Testing**: Jest with React Test Renderer
+### **Mobile Application Interface**
 
-### **Performance & Animation**
-- **Animations**: React Native Reanimated for smooth animations
-- **Charts**: React Native Chart Kit for data visualization
-- **SVG**: React Native SVG for scalable graphics
-- **PDF Generation**: React Native HTML to PDF
+| Home Dashboard | Station Management | Data Entry |
+|:---:|:---:|:---:|
+| ![Home Dashboard](screenshots/Confirmed%20Package%20Uploaded.jpg) | ![Station Management](screenshots/Build%20New%20Load.jpg) | ![Data Entry](screenshots/Confirmed%20Package%20Uploaded.jpg) |
 
-### **Architecture Patterns**
-- **Component Architecture**: Functional components with hooks
-- **Custom Hooks**: Reusable logic (`useLumber`, `useInventory`)
-- **Context Providers**: Global state management
-- **Error Boundaries**: Comprehensive error handling
-- **Type Safety**: Full TypeScript coverage with strict mode
+### **Key Features Demonstrated**
+- ✅ **Intuitive Navigation** - Easy access to all processing stations
+- ✅ **Real-time Data Entry** - Quick and efficient lumber tracking
+- ✅ **Modern UI/UX** - Clean, professional interface design
+- ✅ **Cross-platform** - Consistent experience across devices
+- ✅ **Station Management** - Comprehensive lumber processing workflow
+
+</div>
+
+> **Note**: Screenshots show the application running on mobile devices, demonstrating the user interface and key features in action.
+
+
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v20.17.0 or higher)
+- npm or yarn
+- Expo CLI (`npm install -g @expo/cli`)
+- MongoDB Atlas account (for cloud database)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Brandon-Sickler/lumber-tracker-mobile.git
+   cd EnVtory
+   ```
+
+2. **Install dependencies for each component**
+   ```bash
+   # Mobile app
+   cd lumber-tracker-mobile
+   npm install
+   
+   # Web frontend
+   cd ../lumber-tracker-frontend
+   npm install
+   
+   # Backend API
+   cd ../LumberTrackerAPI
+   npm install
+   ```
+
+3. **Configure environment variables**
+   - Copy `.env.example` to `.env` in each component
+   - Update with your MongoDB Atlas connection string
+   - Configure API endpoints
+
+4. **Start the development servers**
+   ```bash
+   # Start API server
+   cd LumberTrackerAPI
+   npm start
+   
+   # Start mobile app (in new terminal)
+   cd lumber-tracker-mobile
+    npx expo start
+   
+   # Start web frontend (in new terminal)
+   cd lumber-tracker-frontend
+   npm start
+   ```
 
 ## 📁 Project Structure
 
 ```
-lumber-tracker-mobile/
-├── app/                    # Main application screens
-│   ├── (tabs)/            # Tab navigation screens
-│   ├── stations/          # Processing station screens
-│   └── modal.tsx          # Modal components
-├── src/
-│   ├── components/        # Reusable UI components
-│   ├── context/          # React Context providers
-│   ├── hooks/            # Custom React hooks
-│   ├── navigation/       # Navigation configuration
-│   ├── screens/          # Additional screens
-│   ├── styles/           # Global styles and themes
-│   └── types/            # TypeScript type definitions
-├── assets/               # Images, fonts, and static assets
-└── __tests__/           # Test files
+EnVtory/
+├── 📱 lumber-tracker-mobile/          # Mobile application
+│   ├── app/                          # Expo Router screens
+│   ├── src/                          # Source code
+│   ├── assets/                       # Images, fonts, icons
+│   └── README.md                     # Mobile app documentation
+├── 🌐 lumber-tracker-frontend/        # Web dashboard
+│   ├── public/                       # Static assets
+│   ├── src/                          # React components
+│   └── README.md                     # Frontend documentation
+├── 🔧 LumberTrackerAPI/              # Backend API
+│   ├── controllers/                  # Route controllers
+│   ├── models/                       # Database models
+│   ├── routes/                       # API routes
+│   └── README.md                     # API documentation
+└── 📋 README.md                      # This main documentation
 ```
 
-## 🔧 Available Scripts
+## 🎓 Technical Skills Demonstrated
 
-- `npm start` - Start the Expo development server
-- `npm run android` - Run on Android device/emulator
-- `npm run ios` - Run on iOS device/simulator
-- `npm run web` - Run in web browser
-- `npm test` - Run test suite
-- `npm run lint` - Run ESLint
+### **Full-Stack Development**
+- **Frontend**: React Native, React, TypeScript, Material Design
+- **Backend**: Node.js, Express.js, RESTful API design
+- **Database**: MongoDB, Mongoose ODM, cloud deployment
+- **Mobile**: Cross-platform development, native features
 
-## 🎨 Customization
+### **Software Engineering**
+- **Architecture**: Modular design, separation of concerns
+- **Code Quality**: TypeScript, ESLint, comprehensive testing
+- **Version Control**: Professional Git workflow
+- **Documentation**: Detailed READMEs, code comments
 
-The app uses a custom theme with a neon orange primary color (`rgb(255, 140, 0)`). You can customize colors and styling in:
-- `app/_layout.tsx` - Main theme configuration
-- `src/styles/` - Global style definitions
-- `src/constants/Colors.ts` - Color palette
+### **Industry Knowledge**
+- **Manufacturing**: Lumber processing workflows
+- **Business Logic**: Inventory management, status tracking
+- **User Experience**: Mobile-first design, intuitive interfaces
 
-## 📊 Features in Detail
+## 🔮 Future Enhancements
 
-### Inventory Management
-- Real-time inventory tracking
-- Status-based filtering
-- Detailed statistics and reporting
-- Bulk operations support
+### **Phase 1 - Core Features** ✅
+- [x] Basic mobile application structure
+- [x] Station management system
+- [x] Local data storage
+- [x] Basic API endpoints
 
-### Station Operations
-- Intuitive workflow management
-- Status transition tracking
-- Process-specific data entry
-- Quality control integration
+### **Phase 2 - Integration** 🚧
+- [ ] Complete API integration
+- [ ] Real-time synchronization
+- [ ] User authentication
+- [ ] Web dashboard development
 
-### Data Persistence
-- Local storage with AsyncStorage
-- Offline capability
-- Data synchronization ready
-- Backup and restore functionality
+### **Phase 3 - Advanced Features** 📋
+- [ ] Advanced reporting and analytics
+- [ ] Multi-user support with roles
+- [ ] Push notifications
+- [ ] Photo documentation
+- [ ] Export functionality (PDF, Excel)
+
+### **Phase 4 - Enterprise** 📋
+- [ ] Integration with external systems
+- [ ] Advanced security features
+- [ ] Performance optimization
+- [ ] Scalability improvements
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to get started.
+We welcome contributions! Please see the individual README files in each component for specific contribution guidelines.
 
-**Quick Start:**
+**General Process:**
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-For detailed information about our development process, coding standards, and how to contribute effectively, please read our [Contributing Guide](CONTRIBUTING.md).
 
 ## 📄 License
 
@@ -221,87 +257,10 @@ Copyright (c) 2024 Brandon Sickler
 
 For support and questions:
 - Create an issue in the repository
-- Check the Expo documentation: [docs.expo.dev](https://docs.expo.dev/)
-- Join the Expo community: [chat.expo.dev](https://chat.expo.dev/)
+- Check the individual component READMEs for specific guidance
+- Review the Expo documentation: [docs.expo.dev](https://docs.expo.dev/)
 
-## 🏗️ Architecture & Design Patterns
-
-### **Component Architecture**
-- **Functional Components**: Modern React patterns with hooks
-- **Custom Hooks**: Reusable business logic (`useLumber`, `useInventory`)
-- **Context Providers**: Global state management with React Context
-- **Error Boundaries**: Comprehensive error handling and recovery
-
-### **File Organization**
-```
-src/
-├── components/     # Reusable UI components
-├── context/        # State management (Lumber, Inventory, Process)
-├── hooks/          # Custom React hooks
-├── screens/        # Screen components
-├── types/          # TypeScript definitions
-├── utils/          # Helper functions
-├── api/            # API utilities (ready for backend integration)
-├── constants/      # App constants and configuration
-└── styles/         # Global styles and themes
-
-app/
-├── (tabs)/         # Tab-based navigation screens
-├── stations/       # Lumber processing station screens
-└── styles/         # App-specific styles
-```
-
-### **Data Flow**
-- **Unidirectional Data Flow**: React's standard data flow pattern
-- **Context-based State**: Centralized state management
-- **Local Storage**: AsyncStorage for data persistence
-- **Type Safety**: Full TypeScript coverage with strict mode
-
-### **Industry-Specific Design**
-- **Workflow-based UI**: Matches real lumber processing operations
-- **Status-driven Logic**: Lumber status transitions between stations
-- **Quality Control**: Comments and notes system for tracking
-- **Inventory Management**: Comprehensive tracking and reporting
-
-## 🎓 Technical Skills Demonstrated
-
-### **Frontend Development**
-- **React Native**: Cross-platform mobile development
-- **TypeScript**: Type-safe development with strict mode
-- **Modern JavaScript**: ES6+ features and async/await patterns
-- **Material Design**: Professional UI/UX implementation
-
-### **Mobile Development**
-- **Cross-platform**: iOS, Android, and Web support
-- **Native Integration**: Camera, barcode scanning, device APIs
-- **Performance**: Optimized rendering and smooth animations
-- **Responsive Design**: Adaptive layouts for different screen sizes
-
-### **Software Engineering**
-- **Clean Architecture**: Separation of concerns and modular design
-- **Code Quality**: ESLint, TypeScript, comprehensive testing setup
-- **Documentation**: Detailed README, contributing guidelines, code comments
-- **Version Control**: Professional Git workflow and repository management
-
-### **Industry Knowledge**
-- **Lumber Processing**: Understanding of manufacturing workflows
-- **Business Logic**: Status management, inventory tracking, quality control
-- **Process Optimization**: Streamlined mobile workflow for field operations
-
-## 🔮 Future Enhancements
-
-- [ ] Cloud synchronization with backend API
-- [ ] Advanced reporting and analytics dashboard
-- [ ] Multi-user support with role-based access
-- [ ] Integration with external lumber management systems
-- [ ] Advanced barcode/QR code features with inventory lookup
-- [ ] Photo documentation for quality control
-- [ ] Export functionality (PDF reports, Excel spreadsheets)
-- [ ] Push notifications for status updates and alerts
-- [ ] Real-time collaboration between multiple users
-- [ ] Advanced search and filtering capabilities
-
-## 👨‍💻 About the Author
+## 👨‍💻 About the Developer
 
 This project was created and is maintained by **Brandon Sickler**.
 
@@ -312,4 +271,12 @@ This project was created and is maintained by **Brandon Sickler**.
 
 </div>
 
-*Passionate about building innovative solutions that solve real-world problems in the lumber and manufacturing industries. Connect with me to discuss technology, lumber processing, or potential collaborations!*
+*Passionate about building innovative solutions that solve real-world problems in the lumber and manufacturing industries. This project demonstrates modern full-stack development skills and industry-specific knowledge.*
+
+---
+
+<div align="center">
+
+**EnVtory** - *Streamlining lumber processing operations through technology*
+
+</div>

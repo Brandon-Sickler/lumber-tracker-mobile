@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Card, Provider as PaperProvider, Portal, Modal, TextInput, Button } from 'react-native-paper';
 import { useLumber, Lumber } from '@/context/LumberContext';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 
 interface Package {
   id: string;

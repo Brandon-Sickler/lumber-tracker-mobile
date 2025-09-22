@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Text, Button, Card } from 'react-native-paper';
 import { useLumber } from '@/context/LumberContext';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 
 export default function AirDryingScreen() {
   const { lumber, updateLumberStatus } = useLumber();

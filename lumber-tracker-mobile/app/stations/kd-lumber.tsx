@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Card } from 'react-native-paper';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 import { useLumber } from '@/context/LumberContext';
 
 export default function KDLumberScreen() {

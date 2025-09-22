@@ -2,7 +2,7 @@ import React, { useState, useEffect, SetStateAction } from 'react';
 import { View, StyleSheet, Platform, TouchableWithoutFeedback, Keyboard, TextInput as RNTextInput, Alert, SectionList, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Text, Button, Modal, Portal, Provider as PaperProvider, List } from 'react-native-paper';
 import { useLumber } from '@/context/LumberContext';
-import { commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '@/styles/commonStyles';
 
 type Package = {
   id: string;
