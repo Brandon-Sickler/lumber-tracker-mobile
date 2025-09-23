@@ -1,3 +1,13 @@
+/**
+ * TAB LAYOUT - ROOT PROJECT (SDK 51)
+ * 
+ * This file is part of the root EnVtory project (SDK 51).
+ * This is NOT the active project - the active project is in lumber-tracker-mobile/ directory.
+ * 
+ * If you're looking to make changes to the tab layout, use:
+ * lumber-tracker-mobile/app/(tabs)/_layout.tsx instead
+ */
+
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import { Colors } from '@/constants/Colors';

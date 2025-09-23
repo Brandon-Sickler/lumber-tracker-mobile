@@ -1,5 +1,17 @@
+/**
+ * HOME SCREEN - ACTIVE PROJECT (SDK 54)
+ * 
+ * This is the ACTIVE home screen file for the lumber-tracker-mobile project (SDK 54).
+ * This is the file that gets used when running the app from lumber-tracker-mobile/ directory.
+ * 
+ * Recent changes:
+ * - Fixed button centering issues by replacing React Native Paper Button with TouchableOpacity
+ * - Updated package versions to SDK 54
+ * - Buttons now properly centered and not cut off on screen edges
+ */
+
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, Text as RNText } from 'react-native';
 import { Text, Card, Title, Paragraph, Button, useTheme, ActivityIndicator } from 'react-native-paper';
 import { useInventory } from '@/context/InventoryContext';
 import { useRouter } from 'expo-router';
@@ -65,17 +77,16 @@ export default function HomeScreen() {
 
         <View style={styles.stationsContainer}>
           {stations.map((station, index) => (
-            <Button
+            <TouchableOpacity 
               key={index}
-              mode="contained"
               style={styles.stationButton}
-              labelStyle={styles.buttonLabel}
               onPress={() => router.push(station.route as any)}
-              buttonColor="rgba(255, 140, 0, 0.8)" // Neon orange with 80% opacity
               accessibilityLabel={`Navigate to ${station.title}`}
             >
-              {station.title}
-            </Button>
+              <RNText style={styles.buttonLabel}>
+                {station.title}
+              </RNText>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -104,19 +115,31 @@ const styles = StyleSheet.create({
   },
   stationsContainer: {
     marginTop: 16,
+    paddingHorizontal: 16,
+    alignItems: 'center',
   },
   stationButton: {
-    width: buttonWidth,
-    height: 60, // Increased height
+    width: '100%',
+    height: 60,
     marginBottom: 16,
     borderRadius: 16,
+    backgroundColor: 'rgba(255, 140, 0, 0.8)', // Neon orange with 80% opacity
     justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   buttonLabel: {
-    fontSize: 16, // Increased font size
+    fontSize: 16,
     color: 'white',
     textAlign: 'center',
-    lineHeight: 20, // Adjusted line height
+    fontWeight: '600',
   },
   centered: {
     justifyContent: 'center',

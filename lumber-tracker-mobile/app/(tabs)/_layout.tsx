@@ -1,3 +1,14 @@
+/**
+ * TAB LAYOUT - ACTIVE PROJECT (SDK 54)
+ * 
+ * This is the ACTIVE tab layout file for the lumber-tracker-mobile project (SDK 54).
+ * This is the file that gets used when running the app from lumber-tracker-mobile/ directory.
+ * 
+ * Recent changes:
+ * - Updated to SDK 54
+ * - All package versions updated to latest compatible versions
+ */
+
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import { Colors } from '@/constants/Colors';
