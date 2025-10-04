@@ -1,3 +1,5 @@
+// Kiln Operations Station - manages lumber in kiln drying
+
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TextInput as RNTextInput, Alert } from 'react-native';
 import { Text, Button, Modal, Portal, List } from 'react-native-paper';
@@ -5,33 +7,41 @@ import { useLumber } from '@/context/LumberContext';
 import { commonStyles } from '@/styles/commonStyles';
 
 export default function KilnOperationsScreen() {
+  // Get lumber data and update function from context
   const { lumber, updateLumberStatus } = useLumber();
-  const [selectedKiln, setSelectedKiln] = useState<string | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [searchId, setSearchId] = useState('');
+  
+  // Modal and search state
+  const [selectedKiln, setSelectedKiln] = useState<string | null>(null);  // Which kiln is selected
+  const [modalVisible, setModalVisible] = useState(false);              // Whether modal is open
+  const [searchId, setSearchId] = useState('');                        // Lumber ID being searched
 
+  // Available kilns in the system
   const kilns = ['Kiln 1', 'Kiln 2', 'Kiln 3', 'Kiln 4', 'Kiln 5', 'Kiln 6', 'Kiln 7', 'Kiln 8'];
 
+  // Open modal for a specific kiln
   const openKilnModal = (kiln: string) => {
-    setSelectedKiln(kiln);
-    setModalVisible(true);
+    setSelectedKiln(kiln);      // Remember which kiln was selected
+    setModalVisible(true);      // Show the modal
   };
 
+  // Close modal and clear search
   const closeModal = () => {
-    setModalVisible(false);
-    setSearchId('');
+    setModalVisible(false);     // Hide the modal
+    setSearchId('');            // Clear the search input
   };
 
+  // Search for lumber by ID and assign it to the selected kiln
   const searchInventory = () => {
     if (!searchId.trim()) {
       Alert.alert("Invalid Input", "Please enter a valid Lumber ID.");
       return;
     }
 
+    // Find lumber that can go to kiln (must be green or air-drying status)
     const foundLumber = lumber.find(item => item.id === searchId && (item.status === 'green' || item.status === 'air-drying'));
     if (foundLumber && selectedKiln) {
       try {
-        updateLumberStatus(foundLumber.id, 'kiln', selectedKiln);
+        updateLumberStatus(foundLumber.id, 'kiln', selectedKiln);  // Update status to kiln with kiln name
         closeModal();
         Alert.alert("Success", `Lumber ID ${foundLumber.id} has been moved to ${selectedKiln}.`);
       } catch (error) {

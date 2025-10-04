@@ -1,36 +1,25 @@
+// Green Lumber Station - handles new lumber intake
+
 import React, { useState, useEffect, SetStateAction } from 'react';
 import { View, StyleSheet, Platform, TouchableWithoutFeedback, Keyboard, TextInput as RNTextInput, Alert, SectionList, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Text, Button, Modal, Portal, Provider as PaperProvider, List } from 'react-native-paper';
 import { useLumber } from '@/context/LumberContext';
 import { commonStyles } from '@/styles/commonStyles';
+import { Lumber, Load } from '../types';
 
-type Package = {
-  id: string;
-  species: string;
-  grade: string;
-  footage: string;
-  courses: string;
-  vendor: string;
-  date: string;
-  comments: string;
-  loadNumber: string;
-};
 
-type Load = {
-  loadNumber: string;
-  packages: Package[];
-};
-
+// Modal for showing search results
 const SearchResultsModal = ({ visible, onDismiss, searchResults, onEditPackage }) => {
   return (
     <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.modalContent}>
       <Text style={styles.modalTitle}>Search Results</Text>
       <ScrollView style={styles.searchResultsContainer}>
+        {/* Render each search result as a selectable button */}
         {searchResults.map((pkg, index) => (
           <Button
             key={index}
             mode="outlined"
-            onPress={() => onEditPackage(pkg)}
+            onPress={() => onEditPackage(pkg)}  // Select package for editing
             style={styles.searchResultButton}
           >
             {`ID: ${pkg.id} - Species: ${pkg.species} - Grade: ${pkg.grade}`}
@@ -45,25 +34,34 @@ const SearchResultsModal = ({ visible, onDismiss, searchResults, onEditPackage }
 };
 
 export default function GreenLumberScreen() {
+  // Get lumber context functions
   const { addLumber, lumber } = useLumber();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [loadNumber, setLoadNumber] = useState('');
-  const [currentLoad, setCurrentLoad] = useState<Load | null>(null);
-  const [currentPackage, setCurrentPackage] = useState<Package>({
-    id: '',
-    species: '',
-    grade: '',
-    footage: '',
-    courses: '',
-    vendor: '',
-    date: '',
-    comments: '',
-    loadNumber: ''
+  
+  // Modal and form state
+  const [modalVisible, setModalVisible] = useState(false);        // Whether the main modal is open
+  const [loadNumber, setLoadNumber] = useState('');                // Current load number being entered
+  const [currentLoad, setCurrentLoad] = useState<Load | null>(null); // The load being built
+  
+  // Form data for new lumber package
+  const [currentPackage, setCurrentPackage] = useState<Lumber>({
+    id: '',           // Package ID
+    species: '',      // Type of wood
+    grade: '',        // Quality grade
+    footage: '',      // Total footage
+    courses: '',      // Number of courses
+    vendor: '',       // Supplier name
+    date: '',         // Date received
+    comments: '',     // Additional notes
+    loadNumber: '',   // Which load this belongs to
+    status: 'green',  // Always starts as green
+    kilnName: ''      // Not used for green lumber
   });
-  const [searchModalVisible, setSearchModalVisible] = useState(false);
-  const [searchLoadNumber, setSearchLoadNumber] = useState('');
-  const [searchResults, setSearchResults] = useState<Package[]>([]);
-  const [searchResultsVisible, setSearchResultsVisible] = useState(false);
+  
+  // Search functionality state
+  const [searchModalVisible, setSearchModalVisible] = useState(false);  // Search modal open/closed
+  const [searchLoadNumber, setSearchLoadNumber] = useState('');          // Load number to search for
+  const [searchResults, setSearchResults] = useState<Lumber[]>([]);      // Found packages
+  const [searchResultsVisible, setSearchResultsVisible] = useState(false); // Results modal open/closed
 
   useEffect(() => {
     if (currentLoad) {
@@ -71,7 +69,10 @@ export default function GreenLumberScreen() {
     }
   }, [currentLoad]);
 
+  // Open the main modal for creating loads
   const showModal = () => setModalVisible(true);
+  
+  // Close modal and reset all form data
   const hideModal = () => {
     setModalVisible(false);
     setCurrentLoad(null);
@@ -84,10 +85,13 @@ export default function GreenLumberScreen() {
       vendor: '',
       date: '',
       comments: '',
-      loadNumber: ''
+      loadNumber: '',
+      status: 'green',
+      kilnName: ''
     });
   };
 
+  // Add a package to the current load
   const handleAddPackage = () => {
     if (!currentLoad) {
       Alert.alert("Error", "Please create a load first.");
@@ -98,6 +102,7 @@ export default function GreenLumberScreen() {
       return;
     }
     
+    // Show confirmation dialog with package details
     Alert.alert(
       "Confirm Package Details",
       `ID: ${currentPackage.id}\nSpecies: ${currentPackage.species}\nGrade: ${currentPackage.grade}\nFootage: ${currentPackage.footage}\nCourses: ${currentPackage.courses}\nVendor: ${currentPackage.vendor}\nDate: ${currentPackage.date}\nComments: ${currentPackage.comments}`,
@@ -109,6 +114,7 @@ export default function GreenLumberScreen() {
         {
           text: "Confirm",
           onPress: () => {
+            // Add package to current load and reset form
             setCurrentLoad({
               ...currentLoad,
               packages: [...currentLoad.packages, {...currentPackage, id: currentPackage.id}]
@@ -122,7 +128,9 @@ export default function GreenLumberScreen() {
               vendor: '',
               date: '',
               comments: '',
-              loadNumber: currentLoad.loadNumber
+              loadNumber: currentLoad.loadNumber,
+              status: 'green',
+              kilnName: ''
             });
           }
         }
@@ -130,6 +138,7 @@ export default function GreenLumberScreen() {
     );
   };
 
+  // Submit the complete load to the lumber system
   const handleSubmitLoad = () => {
     if (!currentLoad || currentLoad.packages.length === 0) {
       Alert.alert("Error", "Please add at least one package to the load.");
@@ -143,6 +152,7 @@ export default function GreenLumberScreen() {
         { 
           text: "Confirm", 
           onPress: () => {
+            // Add all packages in the load to the lumber system
             currentLoad.packages.forEach(pkg => {
               addLumber({
                 ...pkg,
@@ -158,6 +168,7 @@ export default function GreenLumberScreen() {
     );
   };
 
+  // Create a new load with the entered load number
   const handleCreateLoad = () => {
     if (!loadNumber) {
       Alert.alert("Invalid Input", "Please enter a load number.");
@@ -171,9 +182,11 @@ export default function GreenLumberScreen() {
     setCurrentLoad({ loadNumber, packages: [] });
   };
 
+  // Open/close search modal
   const showSearchModal = () => setSearchModalVisible(true);
   const hideSearchModal = () => setSearchModalVisible(false);
 
+  // Search for lumber by load number
   const handleSearchLoad = () => {
     const foundLoad = lumber.filter(item => item.loadNumber === searchLoadNumber);
     if (foundLoad.length > 0) {
@@ -185,7 +198,8 @@ export default function GreenLumberScreen() {
     }
   };
 
-  const handleEditPackage = (pkg: Package) => {
+  // Edit an existing package (from search results)
+  const handleEditPackage = (pkg: Lumber) => {
     setCurrentLoad({
       loadNumber: pkg.loadNumber,
       packages: [pkg]
@@ -198,7 +212,7 @@ export default function GreenLumberScreen() {
   return (
     <PaperProvider>
       <View style={commonStyles.safeArea}>
-        <SectionList<Package | string>
+        <SectionList<Lumber | string>
           sections={[
             {
               title: 'Header',
@@ -227,7 +241,7 @@ export default function GreenLumberScreen() {
             },
             {
               title: 'Packages',
-              data: (currentLoad ? currentLoad.packages : []) as Package[],
+              data: currentLoad ? currentLoad.packages : [],
             },
           ]}
           renderItem={({ item, section }) => {
@@ -251,7 +265,7 @@ export default function GreenLumberScreen() {
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={styles.modalContainer}
             >
-              <SectionList<Package | string>
+              <SectionList<Lumber | string>
                 sections={[
                   {
                     title: 'Header',
@@ -356,7 +370,7 @@ export default function GreenLumberScreen() {
                   },
                   {
                     title: 'Packages',
-                    data: (currentLoad ? currentLoad.packages : []) as Package[],
+                    data: currentLoad ? currentLoad.packages : [],
                   },
                 ]}
                 renderItem={({ item, section }) => {

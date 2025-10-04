@@ -1,27 +1,33 @@
+// Modal for adding new lumber items
+
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { useInventory } from '@/context/InventoryContext';
 
 export default function ModalScreen() {
+  // Get addItem function from inventory context
   const { addItem } = useInventory();
+  
+  // Form data for new lumber item
   const [newLumber, setNewLumber] = useState({
-    type: '',
-    amount: '',
-    unit: 'board feet',
-    vendor: '',
-    footage: '',
-    comments: '',
-    courses: '',
+    type: '',              // Lumber type/species
+    amount: '',            // Quantity (will be converted to number)
+    unit: 'board feet',    // Unit of measurement
+    vendor: '',            // Supplier name
+    footage: '',           // Total footage
+    comments: '',          // Additional notes
+    courses: '',           // Number of courses
   });
 
+  // Add new lumber item to inventory
   const handleAddItem = () => {
     addItem({
-      id: Date.now().toString(),
-      ...newLumber,
-      amount: Number(newLumber.amount),
-      status: 'green',
-      date: new Date().toISOString().split('T')[0],
+      id: Date.now().toString(),                    // Generate unique ID
+      ...newLumber,                                 // All form data
+      amount: Number(newLumber.amount),            // Convert to number
+      status: 'green',                             // Start as green lumber
+      date: new Date().toISOString().split('T')[0], // Current date
     });
   };
 

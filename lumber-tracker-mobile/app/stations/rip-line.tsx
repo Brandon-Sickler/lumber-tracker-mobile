@@ -1,24 +1,32 @@
+// Rip Line Station - displays infeed queue for processing
+
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Card, Provider as PaperProvider, Portal, Modal, TextInput, Button } from 'react-native-paper';
 import { useLumber, Lumber } from '@/context/LumberContext';
 import { commonStyles } from '@/styles/commonStyles';
 
+/**
+ * Package interface for rip line operations
+ * Simplified package structure for display purposes
+ */
 interface Package {
-  id: string;
-  vendor: string;
-  grade: string;
-  date: string;
-  comments?: string;
-
+  id: string;          // Package identifier
+  vendor: string;      // Supplier name
+  grade: string;       // Lumber grade
+  date: string;        // Date received
+  comments?: string;   // Optional comments
 }
 
 export default function RipLineScreen() {
+  // Get infeed queue from lumber context
   const { getInfeedQueue } = useLumber();
-  const [infeedQueue, setInfeedQueue] = useState<(Lumber | null)[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<Lumber | null>(null);
-  const [newComment, setNewComment] = useState('');
+  
+  // Queue and modal state
+  const [infeedQueue, setInfeedQueue] = useState<(Lumber | null)[]>([]);  // Current infeed queue
+  const [modalVisible, setModalVisible] = useState(false);                // Comments modal visibility
+  const [selectedPackage, setSelectedPackage] = useState<Lumber | null>(null);  // Selected package for comments
+  const [newComment, setNewComment] = useState('');                       // New comment input
 
   useEffect(() => {
     setInfeedQueue(getInfeedQueue());

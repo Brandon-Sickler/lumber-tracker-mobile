@@ -1,3 +1,5 @@
+// Infeed Queue Station - manages processing queue
+
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { Text, Button, Modal, Portal, Provider as PaperProvider, TextInput } from 'react-native-paper';
@@ -5,19 +7,25 @@ import { useLumber, Lumber } from '@/context/LumberContext';
 import { commonStyles } from '@/styles/commonStyles';
 
 export default function InfeedQueueScreen() {
+  // Get all lumber context functions
   const { lumber, moveLumberToInfeed, completeInfeedItem, getInfeedQueue, findLumberById, removeFromInfeedQueue } = useLumber();
-  const [queue, setQueue] = useState<(Lumber | null)[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [searchId, setSearchId] = useState('');
+  
+  // Queue management state
+  const [queue, setQueue] = useState<(Lumber | null)[]>([]);  // Current infeed queue (max 4 items)
+  const [modalVisible, setModalVisible] = useState(false);  // Whether add package modal is open
+  const [searchId, setSearchId] = useState('');            // Package ID being searched
 
+  // Update queue when lumber data changes
   useEffect(() => {
     updateQueue();
   }, [lumber]);
 
+  // Refresh the queue display
   const updateQueue = () => {
     setQueue(getInfeedQueue());
   };
 
+  // Open/close the add package modal
   const showModal = () => {
     setModalVisible(true);
   };
@@ -27,6 +35,7 @@ export default function InfeedQueueScreen() {
     setSearchId('');
   };
 
+  // Search for lumber by ID and add to infeed queue
   const handleSearch = () => {
     const foundLumber = findLumberById(searchId);
     if (foundLumber) {
@@ -38,8 +47,8 @@ export default function InfeedQueueScreen() {
           { 
             text: "Yes", 
             onPress: () => {
-              moveLumberToInfeed(foundLumber.id);
-              updateQueue();
+              moveLumberToInfeed(foundLumber.id);  // Move to infeed status
+              updateQueue();  // Refresh queue display
             }
           }
         ]
@@ -49,6 +58,7 @@ export default function InfeedQueueScreen() {
     }
   };
 
+  // Remove package from queue (long press to delete)
   const handleLongPress = (pkg: Lumber) => {
     Alert.alert(
       "Confirm Deletion",
@@ -66,8 +76,8 @@ export default function InfeedQueueScreen() {
                 { 
                   text: "Yes, Delete", 
                   onPress: () => {
-                    removeFromInfeedQueue(pkg.id);
-                    updateQueue();
+                    removeFromInfeedQueue(pkg.id);  // Remove from queue
+                    updateQueue();  // Refresh display
                     Alert.alert("Success", "Package has been removed from the queue.");
                   },
                   style: "destructive"
@@ -80,6 +90,7 @@ export default function InfeedQueueScreen() {
     );
   };
 
+  // Complete the first item in the queue (moves to rip status)
   const completeFirstItem = () => {
     if (queue.length > 0 && queue[0]) {
       Alert.alert(
@@ -90,8 +101,8 @@ export default function InfeedQueueScreen() {
           { 
             text: "Confirm", 
             onPress: () => {
-              completeInfeedItem(queue[0]!.id);
-              updateQueue();
+              completeInfeedItem(queue[0]!.id);  // Mark as complete
+              updateQueue();  // Refresh display
             }
           }
         ]

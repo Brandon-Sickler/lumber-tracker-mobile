@@ -1,22 +1,12 @@
-/**
- * HOME SCREEN - ACTIVE PROJECT (SDK 54)
- * 
- * This is the ACTIVE home screen file for the lumber-tracker-mobile project (SDK 54).
- * This is the file that gets used when running the app from lumber-tracker-mobile/ directory.
- * 
- * Recent changes:
- * - Fixed button centering issues by replacing React Native Paper Button with TouchableOpacity
- * - Updated package versions to SDK 54
- * - Buttons now properly centered and not cut off on screen edges
- */
-
+// Home screen - main dashboard with station buttons
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, Text as RNText } from 'react-native';
-import { Text, Card, Title, Paragraph, Button, useTheme, ActivityIndicator } from 'react-native-paper';
+import { Text, Card, Title, Paragraph, Button, useTheme } from 'react-native-paper';
 import { useInventory } from '@/context/InventoryContext';
 import { useRouter } from 'expo-router';
 
-const stations = [
+// List of all processing stations
+const stationConfig = [
   { title: 'Green Lumber Received', route: '/stations/green-lumber' },
   { title: 'Kiln Operations', route: '/stations/kiln-operations' },
   { title: 'Rip Line Production', route: '/stations/rip-line' },
@@ -25,23 +15,36 @@ const stations = [
 ];
 
 export default function HomeScreen() {
+  // Get inventory data and loading function
   const { inventory, loadInventory } = useInventory();
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const theme = useTheme();
+  const [isLoading, setIsLoading] = useState(true);  // Loading state for initial data
 
+  // Load inventory data when component mounts
   useEffect(() => {
-    async function load() {
-      await loadInventory();
-      setLoading(false);
-    }
-    load();
-  }, []);
+    const initializeData = async () => {
+      try {
+        await loadInventory();  // Load sample inventory data
+      } catch (error) {
+        console.error('Error loading inventory:', error);
+      } finally {
+        setIsLoading(false);  // Stop loading
+      }
+    };
 
-  if (loading) {
+    initializeData();
+  }, [loadInventory]);
+
+  // Navigate to a station when button is pressed
+  const handleStationPress = (route: string) => {
+    router.push(route as any);
+  };
+
+  if (isLoading) {
     return (
-      <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color={theme.colors.primary} />
+      <View style={styles.centered}>
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -50,84 +53,99 @@ export default function HomeScreen() {
     <KeyboardAvoidingView 
       style={styles.container} 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
-      <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-        <Card style={styles.card}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+        <Card style={styles.welcomeCard}>
           <Card.Content>
-            <Title>Inventory Overview</Title>
-            <Paragraph>Total Items: {inventory.length}</Paragraph>
+            <Title style={styles.welcomeTitle}>Welcome to Lumber Tracker</Title>
+            <Paragraph style={styles.welcomeText}>
+              Track your lumber inventory and processing stations
+            </Paragraph>
           </Card.Content>
         </Card>
 
-        <View style={styles.statsContainer}>
-          <Card style={styles.statCard}>
-            <Card.Content>
-              <Title>Types</Title>
-              <Paragraph>{new Set(inventory.map(item => item.type)).size}</Paragraph>
-            </Card.Content>
-          </Card>
-          <Card style={styles.statCard}>
-            <Card.Content>
-              <Title>Total Amount</Title>
-              <Paragraph>{inventory.reduce((sum, item) => sum + item.amount, 0)}</Paragraph>
-            </Card.Content>
-          </Card>
-        </View>
-
         <View style={styles.stationsContainer}>
-          {stations.map((station, index) => (
-            <TouchableOpacity 
+          <Text style={styles.sectionTitle}>Processing Stations</Text>
+          {stationConfig.map((station, index) => (
+            <TouchableOpacity
               key={index}
               style={styles.stationButton}
-              onPress={() => router.push(station.route as any)}
-              accessibilityLabel={`Navigate to ${station.title}`}
+              onPress={() => handleStationPress(station.route)}
             >
-              <RNText style={styles.buttonLabel}>
-                {station.title}
-              </RNText>
+              <RNText style={styles.buttonLabel}>{station.title}</RNText>
             </TouchableOpacity>
           ))}
         </View>
+
+        <Card style={styles.inventoryCard}>
+          <Card.Content>
+            <Title style={styles.inventoryTitle}>Current Inventory</Title>
+            <Paragraph style={styles.inventoryText}>
+              Total Items: {inventory.length}
+            </Paragraph>
+            {inventory.length > 0 && (
+              <Paragraph style={styles.inventoryText}>
+                Latest: {inventory[0]?.type} - {inventory[0]?.footage} ft
+              </Paragraph>
+            )}
+          </Card.Content>
+        </Card>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const windowWidth = Dimensions.get('window').width;
-const buttonWidth = windowWidth - 32; // Full width minus padding
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
     padding: 16,
   },
-  card: {
+  welcomeCard: {
     marginBottom: 16,
+    elevation: 2,
   },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
+  welcomeTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2E7D32',
+    textAlign: 'center',
   },
-  statCard: {
-    width: '48%',
+  welcomeText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 8,
+    color: '#666',
   },
   stationsContainer: {
     marginTop: 16,
     paddingHorizontal: 16,
     alignItems: 'center',
   },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#2E7D32',
+    textAlign: 'center',
+  },
   stationButton: {
     width: '100%',
     height: 60,
     marginBottom: 16,
     borderRadius: 16,
-    backgroundColor: 'rgba(255, 140, 0, 0.8)', // Neon orange with 80% opacity
+    backgroundColor: 'rgba(255, 140, 0, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 2, // Android shadow
-    shadowColor: '#000', // iOS shadow
+    elevation: 2,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -141,10 +159,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
   },
+  inventoryCard: {
+    marginTop: 16,
+    elevation: 2,
+  },
+  inventoryTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#2E7D32',
+  },
+  inventoryText: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 4,
+  },
   centered: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
-
-

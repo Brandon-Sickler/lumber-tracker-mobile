@@ -101,9 +101,9 @@ EnVtory/
 
 ### **Mobile Application Interface**
 
-| Home Dashboard | Station Management | Data Entry |
-|:---:|:---:|:---:|
-| ![Home Dashboard](screenshots/Confirmed%20Package%20Uploaded.jpg) | ![Station Management](screenshots/Build%20New%20Load.jpg) | ![Data Entry](screenshots/Confirmed%20Package%20Uploaded.jpg) |
+| Home Dashboard | Build New Load | Package Uploaded | Search Results |
+|:---:|:---:|:---:|:---:|
+| ![Home Dashboard](screenshots/Home%20Screen.jpg) | ![Build New Load](screenshots/Build%20New%20Load.jpg) | ![Package Uploaded](screenshots/Confirmed%20Package%20Uploaded.jpg) | ![Search Results](screenshots/Search%20Results.jpg) |
 
 ### **Key Features Demonstrated**
 - ✅ **Intuitive Navigation** - Easy access to all processing stations

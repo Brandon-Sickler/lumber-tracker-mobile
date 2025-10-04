@@ -1,3 +1,5 @@
+// KD Lumber Station - shows kiln-dried lumber inventory
+
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Card } from 'react-native-paper';
@@ -5,7 +7,9 @@ import { commonStyles } from '@/styles/commonStyles';
 import { useLumber } from '@/context/LumberContext';
 
 export default function KDLumberScreen() {
+  // Get lumber data from context
   const { lumber } = useLumber();
+  // Filter lumber items that have completed kiln drying (kd status)
   const kdLumber = lumber.filter(item => item.status === 'kd');
 
   return (
