@@ -1,3 +1,5 @@
+// Express server for lumber tracker API
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -10,7 +12,6 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => {
@@ -18,12 +19,10 @@ mongoose.connect(process.env.MONGODB_URL)
   process.exit(1);
 });
 
-// log any errors after initial connection
 mongoose.connection.on('error', err => {
   console.error('MongoDB connection error:', err);
 });
 
-// Routes
 const lumberPackagesRouter = require('./routes/lumberPackages');
 app.use('/api/lumberPackages', lumberPackagesRouter);
 
@@ -34,4 +33,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`API accessible at: http://localhost:${PORT}`);
 });

@@ -1,8 +1,9 @@
+// Routes for lumber package CRUD operations
+
 const express = require('express');
 const router = express.Router();
 const LumberPackage = require('../models/lumberPackage');
 
-// GET all lumber packages
 router.get('/', async (req, res) => {
   try {
     const lumberPackages = await LumberPackage.find();
@@ -12,7 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET a single lumber package by ID
 router.get('/:id', async (req, res) => {
   try {
     const lumberPackage = await LumberPackage.findById(req.params.id);
@@ -25,7 +25,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST a new lumber package
 router.post('/', async (req, res) => {
   const lumberPackage = new LumberPackage({
     packageNumber: req.body.packageNumber,
@@ -41,7 +40,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT (update) a lumber package
 router.put('/:id', async (req, res) => {
   try {
     const lumberPackage = await LumberPackage.findById(req.params.id);
@@ -66,7 +64,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE a lumber package
 router.delete('/:id', async (req, res) => {
   try {
     const lumberPackage = await LumberPackage.findById(req.params.id);
