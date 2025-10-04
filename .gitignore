@@ -115,4 +115,8 @@ dist
 expo-env.d.ts
 # @end expo-cli
 
+# Temporary drive files
+*.tmp.driveupload
+.tmp.driveupload*
+
 notepad .gitignore
