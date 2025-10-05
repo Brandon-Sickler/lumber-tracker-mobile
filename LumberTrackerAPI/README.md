@@ -23,22 +23,22 @@ The EnVtory API serves as the central data management system, providing:
 - Historical data and audit trails
 
 ### 🔐 **Security**
-- JWT-based authentication
-- Role-based access control
-- Input validation and sanitization
 - CORS configuration for cross-origin requests
-
-### 🚀 **Performance**
-- Optimized database queries
-- Response caching strategies
+- Input validation and sanitization
 - Error handling and logging
 - Health check endpoints
 
+### 🚀 **Performance**
+- Optimized database queries
+- Error handling and logging
+- Health check endpoints
+- MongoDB connection management
+
 ### 🔗 **Integration**
 - RESTful API design
-- WebSocket support for real-time updates
-- External system integration capabilities
-- API documentation with Swagger
+- Mobile app integration
+- Web dashboard integration
+- Simple and reliable endpoints
 
 ## 🛠️ Technology Stack
 
@@ -49,16 +49,16 @@ The EnVtory API serves as the central data management system, providing:
 - **Mongoose** - MongoDB object modeling
 
 ### **Security & Validation**
-- **JWT** - JSON Web Token authentication
-- **bcrypt** - Password hashing
-- **express-validator** - Input validation
-- **helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
+- **Input validation** - Request validation
+- **Error handling** - Comprehensive error management
+- **Environment variables** - Secure configuration
 
 ### **Development Tools**
-- **nodemon** - Development server with auto-restart
 - **dotenv** - Environment variable management
 - **cors** - Cross-origin resource sharing
-- **morgan** - HTTP request logging
+- **MongoDB** - Database connection
+- **Express** - Web framework
 
 ## 🚀 Getting Started
 
@@ -160,12 +160,12 @@ LumberTrackerAPI/
 
 ## 🔐 Authentication
 
-The API uses JWT-based authentication:
+The API currently uses simple CORS configuration for development:
 
-1. **Login** - POST `/api/auth/login` with credentials
-2. **Token** - Receive JWT token in response
-3. **Authorization** - Include token in `Authorization: Bearer <token>` header
-4. **Validation** - Middleware validates token on protected routes
+1. **CORS Enabled** - Cross-origin requests allowed for development
+2. **No Authentication** - Currently open for development purposes
+3. **Future Enhancement** - JWT authentication planned for production
+4. **Security** - Input validation and error handling implemented
 
 ## 🌐 Environment Variables
 
@@ -174,7 +174,6 @@ Create a `.env` file with the following variables:
 ```env
 PORT=5000
 MONGODB_URL=mongodb+srv://username:password@cluster.mongodb.net/database
-JWT_SECRET=your-secret-key
 NODE_ENV=development
 ```
 

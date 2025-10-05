@@ -24,16 +24,16 @@ The EnVtory Frontend provides a comprehensive web-based dashboard for managing l
 - Export functionality (PDF, Excel)
 
 ### 👥 **User Management**
-- Role-based access control
-- User authentication and authorization
-- Activity logging and audit trails
-- Permission management
+- Basic user interface
+- Simple navigation
+- User-friendly design
+- Intuitive controls
 
 ### ⚙️ **System Administration**
 - Configuration management
 - System settings and preferences
 - Integration management
-- Backup and restore operations
+- Basic administration features
 
 ### 📱 **Responsive Design**
 - Mobile-friendly interface
@@ -44,10 +44,10 @@ The EnVtory Frontend provides a comprehensive web-based dashboard for managing l
 ## 🛠️ Technology Stack
 
 ### **Core Technologies**
-- **React 18.2.0** - Modern React with hooks and functional components
-- **TypeScript 4.9.5** - Type-safe development
-- **React Router 6.8.1** - Client-side routing
-- **Material-UI 5.11.10** - Component library and design system
+- **React** - Modern React with hooks and functional components
+- **TypeScript** - Type-safe development
+- **React Router** - Client-side routing
+- **Material-UI** - Component library and design system
 
 ### **State Management**
 - **React Context API** - Global state management
