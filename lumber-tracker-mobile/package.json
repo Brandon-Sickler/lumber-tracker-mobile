@@ -64,5 +64,9 @@
     "react-test-renderer": "18.2.0",
     "typescript": "~5.9.2"
   },
+  "overrides": {
+    "@react-native-community/cli-server-api": ">=20.0.0",
+    "@react-native-community/cli": ">=17.0.1"
+  },
   "private": true
 }
